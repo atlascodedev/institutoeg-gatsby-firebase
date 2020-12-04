@@ -1,11 +1,12 @@
 import React from "react"
-import { FirebaseAuthContext } from "../firebase/firebaseAuthContext"
-import { FirestoreContext } from "../firebase/firestoreContext"
+import { FirebaseGlobalContext } from "../firebase/globalContext"
 
 function IndexPage(props) {
-  const firestore = React.useContext(FirestoreContext)
-  const auth = React.useContext(FirebaseAuthContext)
+  const firebase = React.useContext(FirebaseGlobalContext)
 
+  const firestore = firebase.firestoreMethods
+
+  console.log(firestore)
   return (
     <div
       style={{
@@ -17,7 +18,8 @@ function IndexPage(props) {
         alignItems: "center",
       }}
     >
-      <button onClick={auth.logoutUser}>Logout user</button>
+      CLEAN POGU
+      {/* <button onClick={auth.logoutUser}>Logout user</button> */}
       <button onClick={firestore.getCourseAreas}>Get course area</button>
     </div>
   )

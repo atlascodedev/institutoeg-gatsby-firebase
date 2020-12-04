@@ -1,16 +1,13 @@
 import React from "react"
-import { FirebaseGlobalContext } from "./context"
-import FirestoreMethods from "./firestoreMethods"
+import { FirebaseGlobalContext } from "../firebase/globalContext"
 
 export const FirestoreContext = React.createContext(null)
 
 export const FirestoreContextProvider = props => {
   const firebase = React.useContext(FirebaseGlobalContext)
 
-  const firestoreInstance = firebase.db
-
   return (
-    <FirestoreContext.Provider value={new FirestoreMethods(firestoreInstance)}>
+    <FirestoreContext.Provider value={"butt"}>
       {props.children}
     </FirestoreContext.Provider>
   )
