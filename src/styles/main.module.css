@@ -1,0 +1,68 @@
+.bar {
+  height: 4px;
+  width: 85px;
+  background: #e8578e;
+  margin: 20px auto 25px;
+  position: relative;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.bar::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 5px;
+  background: #fff;
+  -webkit-animation-duration: 2s;
+  animation-duration: 2s;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: MOVE-BG;
+  animation-name: MOVE-BG;
+}
+
+@keyframes MOVE-BG {
+  from {
+    -webkit-transform: translateX(0);
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    -webkit-transform: translateX(85px);
+    transform: translateX(85px);
+    opacity: 0;
+  }
+}
+
+.pizzabar {
+  height: 25px;
+  width: 85px;
+  background: transparent;
+  margin: 20px auto 25px;
+  position: relative;
+  border-radius: 5px;
+  overflow: hidden;
+  display: flex;
+}
+
+.pizzabar::before {
+  content: "🍕";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 5px;
+  -webkit-animation-duration: 2s;
+  animation-duration: 2s;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: MOVE-BG;
+  animation-name: MOVE-BG;
+}
