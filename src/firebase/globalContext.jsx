@@ -8,6 +8,8 @@ import {
   FirestoreContext,
   FirestoreContextProvider,
 } from "../firestore/context"
+import { MuiThemeProvider } from "@material-ui/core"
+import { theme } from "../theme"
 
 export const FirebaseGlobalContext = React.createContext(null)
 
@@ -23,7 +25,9 @@ export const wrapRootElement = ({ element }) => {
   return (
     <FirebaseGlobalContextProvider>
       <FirebaseAuthContextProvider>
-        <FirestoreContextProvider>{element}</FirestoreContextProvider>
+        <FirestoreContextProvider>
+          <MuiThemeProvider theme={theme}>{element}</MuiThemeProvider>
+        </FirestoreContextProvider>
       </FirebaseAuthContextProvider>
     </FirebaseGlobalContextProvider>
   )

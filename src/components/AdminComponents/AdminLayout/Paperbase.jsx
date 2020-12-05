@@ -37,6 +37,20 @@ let theme = createMuiTheme({
       main: "#009be5",
       dark: "#006db3",
     },
+    warning: {
+      main: "#ff9800",
+    },
+
+    info: {
+      main: "#2196f3",
+    },
+
+    error: {
+      main: "#f44336",
+    },
+    success: {
+      main: "#4caf50",
+    },
   },
   typography: {
     h5: {
