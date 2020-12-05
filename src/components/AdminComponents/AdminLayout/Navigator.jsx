@@ -9,44 +9,7 @@ import ListItem from "@material-ui/core/ListItem"
 import ListItemIcon from "@material-ui/core/ListItemIcon"
 import ListItemText from "@material-ui/core/ListItemText"
 import HomeIcon from "@material-ui/icons/Home"
-import PeopleIcon from "@material-ui/icons/People"
-import DnsRoundedIcon from "@material-ui/icons/DnsRounded"
-import PermMediaOutlinedIcon from "@material-ui/icons/PhotoSizeSelectActual"
-import PublicIcon from "@material-ui/icons/Public"
-import SettingsEthernetIcon from "@material-ui/icons/SettingsEthernet"
-import SettingsInputComponentIcon from "@material-ui/icons/SettingsInputComponent"
-import TimerIcon from "@material-ui/icons/Timer"
-import SettingsIcon from "@material-ui/icons/Settings"
-import PhonelinkSetupIcon from "@material-ui/icons/PhonelinkSetup"
-
-const categories = [
-  {
-    id: "Administração",
-    children: [
-      {
-        id: "Alunos",
-        icon: <PeopleIcon />,
-        active: true,
-      },
-      { id: "Cursos", icon: <DnsRoundedIcon /> },
-      { id: "Vendedores", icon: <PermMediaOutlinedIcon /> },
-      { id: "Mensagens", icon: <PublicIcon /> },
-      // { id: "Functions", icon: <SettingsEthernetIcon /> },
-      // {
-      //   id: "ML Kit",
-      //   icon: <SettingsInputComponentIcon />,
-      // },
-    ],
-  },
-  // {
-  //   id: "Quality",
-  //   children: [
-  //     { id: "Analytics", icon: <SettingsIcon /> },
-  //     { id: "Performance", icon: <TimerIcon /> },
-  //     { id: "Test Lab", icon: <PhonelinkSetupIcon /> },
-  //   ],
-  // },
-]
+import { useLocation, Link } from "@reach/router"
 
 const styles = theme => ({
   categoryHeader: {
@@ -91,7 +54,14 @@ const styles = theme => ({
 })
 
 function Navigator(props) {
+  const [categories, setCategories] = React.useState([])
+
   const { classes, ...other } = props
+  const { pathname } = useLocation()
+
+  React.useEffect(() => {
+    setCategories(props.categories)
+  }, [])
 
   return (
     <Drawer variant="permanent" {...other}>
@@ -101,18 +71,30 @@ function Navigator(props) {
         >
           Instituto Gnosis
         </ListItem>
-        <ListItem className={clsx(classes.item, classes.itemCategory)}>
-          <ListItemIcon className={classes.itemIcon}>
-            <HomeIcon />
-          </ListItemIcon>
-          <ListItemText
-            classes={{
-              primary: classes.itemPrimary,
-            }}
+        <Link to={"/admin/dashboard"} style={{ textDecoration: "none" }}>
+          <ListItem
+            style={{ cursor: "pointer" }}
+            className={clsx(classes.item, classes.itemCategory)}
           >
-            Visão geral
-          </ListItemText>
-        </ListItem>
+            <ListItemIcon
+              className={clsx(
+                classes.itemIcon,
+                classes.itemPrimary,
+                pathname == "/admin/dashboard" && classes.itemActiveItem
+              )}
+            >
+              <HomeIcon />
+            </ListItemIcon>
+            <ListItemText
+              className={clsx(
+                classes.itemPrimary,
+                pathname == "/admin/dashboard" && classes.itemActiveItem
+              )}
+            >
+              Visão geral
+            </ListItemText>
+          </ListItem>
+        </Link>
         {categories.map(({ id, children }) => (
           <React.Fragment key={id}>
             <ListItem className={classes.categoryHeader}>
@@ -124,21 +106,27 @@ function Navigator(props) {
                 {id}
               </ListItemText>
             </ListItem>
-            {children.map(({ id: childId, icon, active }) => (
-              <ListItem
-                key={childId}
-                button
-                className={clsx(classes.item, active && classes.itemActiveItem)}
-              >
-                <ListItemIcon className={classes.itemIcon}>{icon}</ListItemIcon>
-                <ListItemText
-                  classes={{
-                    primary: classes.itemPrimary,
-                  }}
+            {children.map(({ id: childId, icon, path }) => (
+              <Link key={childId} to={path} style={{ textDecoration: "none" }}>
+                <ListItem
+                  button
+                  className={clsx(
+                    classes.item,
+                    path == pathname && classes.itemActiveItem
+                  )}
                 >
-                  {childId}
-                </ListItemText>
-              </ListItem>
+                  <ListItemIcon className={classes.itemIcon}>
+                    {icon}
+                  </ListItemIcon>
+                  <ListItemText
+                    classes={{
+                      primary: classes.itemPrimary,
+                    }}
+                  >
+                    {childId}
+                  </ListItemText>
+                </ListItem>
+              </Link>
             ))}
 
             <Divider className={classes.divider} />

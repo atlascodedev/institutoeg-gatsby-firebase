@@ -2,9 +2,13 @@ import React from "react"
 import { navigate } from "gatsby"
 
 const PrivateRoute = ({ component: Component, location, ...rest }) => {
-  if (true && location.pathname !== "/admin/login") {
+  const auth = rest.isAuth
+
+  if (!auth && location.pathname !== "/admin/login") {
     navigate("/admin/login")
     return null
+  } else if (auth && location.pathname == "/admin/login") {
+    navigate("/admin/dashboard")
   }
 
   return <Component {...rest}></Component>

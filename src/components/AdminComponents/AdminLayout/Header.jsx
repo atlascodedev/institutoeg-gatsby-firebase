@@ -16,6 +16,7 @@ import Toolbar from "@material-ui/core/Toolbar"
 import Tooltip from "@material-ui/core/Tooltip"
 import Typography from "@material-ui/core/Typography"
 import { withStyles } from "@material-ui/core/styles"
+import { useLocation } from "@reach/router"
 
 const lightColor = "rgba(255, 255, 255, 0.7)"
 
@@ -45,6 +46,13 @@ const styles = theme => ({
 function Header(props) {
   const { classes, onDrawerToggle } = props
 
+  const location = useLocation()
+
+  const pathName = location.pathname.split("/")[2]
+  const pathNameArray = pathName.split("")
+  const firstLetter = pathNameArray[0]
+  const newPathName = pathName.replace(firstLetter, firstLetter.toUpperCase())
+
   return (
     <React.Fragment>
       <AppBar color="primary" position="sticky" elevation={0}>
@@ -65,7 +73,7 @@ function Header(props) {
             <Grid item xs>
               {" "}
               <Typography color="inherit" variant="h6" component="h1">
-                Authentication
+                {newPathName}
               </Typography>{" "}
             </Grid>
 
@@ -94,38 +102,7 @@ function Header(props) {
         color="primary"
         position="static"
         elevation={0}
-      >
-        {/* <Toolbar>
-          <Grid container alignItems="center" spacing={1}>
-            <Grid item xs>
-              <Typography color="inherit" variant="h5" component="h1">
-                Authentication
-              </Typography>
-            </Grid>
-
-            <Grid item>
-              <Tooltip title="Help">
-                <IconButton color="inherit">
-                  <HelpIcon />
-                </IconButton>
-              </Tooltip>
-            </Grid>
-          </Grid>
-        </Toolbar> */}
-      </AppBar>
-      <AppBar
-        component="div"
-        className={classes.secondaryBar}
-        position="static"
-        elevation={0}
-      >
-        <Tabs value={0} textColor="inherit">
-          <Tab label="Users" />
-          <Tab label="Sign-in method" />
-          <Tab label="Templates" />
-          <Tab label="Usage" />
-        </Tabs>
-      </AppBar>
+      ></AppBar>
     </React.Fragment>
   )
 }

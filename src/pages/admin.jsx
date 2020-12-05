@@ -2,15 +2,56 @@ import React from "react"
 import { Router } from "@reach/router"
 import { navigate } from "gatsby"
 import Login from "../components/AdminComponents/Login"
-import AdminLayout from "../components/AdminComponents/AdminLayout/Paperbase"
+import Dashboard from "../components/AdminComponents/Dashboard"
+import Students from "../components/AdminComponents/Students"
+import Courses from "../components/AdminComponents/Courses"
+import Salesmen from "../components/AdminComponents/Salesmen"
+import Messages from "../components/AdminComponents/Messages"
+import PrivateRoute from "../components/AdminComponents/PrivateRoute"
+import { FirebaseAuthContext } from "../authentication/context"
 
 function Admin(props) {
-  const isAuth = true
+  const isAuth = React.useContext(FirebaseAuthContext)
+
+  console.log(isAuth, 'aqui aqui aqui')
 
   return (
     <Router>
-      <Login path={"/admin/login"} />
-      <AdminLayout path={"/admin/dashboard"}></AdminLayout>
+      <PrivateRoute
+        isAuth={isAuth}
+        component={Login}
+        path={"/admin/login"}
+      ></PrivateRoute>
+
+      <PrivateRoute
+        isAuth={isAuth}
+        component={Dashboard}
+        path={"/admin/dashboard"}
+      ></PrivateRoute>
+
+      <PrivateRoute
+        isAuth={isAuth}
+        component={Students}
+        path={"/admin/alunos"}
+      ></PrivateRoute>
+
+      <PrivateRoute
+        isAuth={isAuth}
+        component={Courses}
+        path={"/admin/cursos"}
+      ></PrivateRoute>
+
+      <PrivateRoute
+        isAuth={isAuth}
+        component={Salesmen}
+        path={"/admin/vendedores"}
+      ></PrivateRoute>
+
+      <PrivateRoute
+        isAuth={isAuth}
+        component={Messages}
+        path={"/admin/mensagens"}
+      ></PrivateRoute>
     </Router>
   )
 }

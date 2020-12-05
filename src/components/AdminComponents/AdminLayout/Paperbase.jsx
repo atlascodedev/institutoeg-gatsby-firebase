@@ -3,7 +3,6 @@ import PropTypes from "prop-types"
 import {
   createMuiTheme,
   MuiThemeProvider,
-  ThemeProvider,
   withStyles,
 } from "@material-ui/core/styles"
 import CssBaseline from "@material-ui/core/CssBaseline"
@@ -13,13 +12,17 @@ import Link from "@material-ui/core/Link"
 import Navigator from "./Navigator"
 import Content from "./Content"
 import Header from "./Header"
+import PublicIcon from "@material-ui/icons/Public"
+import PeopleIcon from "@material-ui/icons/People"
+import DnsRoundedIcon from "@material-ui/icons/DnsRounded"
+import PermMediaOutlinedIcon from "@material-ui/icons/PermMediaOutlined"
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
       <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+        {"AtlasCode Dev - Desenvolvimento web & estratégia"}
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -152,7 +155,6 @@ const styles = {
   },
   main: {
     flex: 1,
-    padding: theme.spacing(6, 4),
     background: "#eaeff1",
   },
   footer: {
@@ -160,6 +162,26 @@ const styles = {
     background: "#eaeff1",
   },
 }
+
+const categories = [
+  {
+    id: "Administração",
+    children: [
+      {
+        id: "Alunos",
+        icon: <PeopleIcon />,
+        path: "/admin/alunos",
+      },
+      { id: "Cursos", icon: <DnsRoundedIcon />, path: "/admin/cursos" },
+      {
+        id: "Vendedores",
+        icon: <PermMediaOutlinedIcon />,
+        path: "/admin/vendedores",
+      },
+      { id: "Mensagens", icon: <PublicIcon />, path: "/admin/mensagens" },
+    ],
+  },
+]
 
 function Paperbase(props) {
   const { classes } = props
@@ -176,6 +198,7 @@ function Paperbase(props) {
         <nav className={classes.drawer}>
           <Hidden smUp implementation="js">
             <Navigator
+              categories={categories}
               PaperProps={{ style: { width: drawerWidth } }}
               variant="temporary"
               open={mobileOpen}
@@ -183,13 +206,16 @@ function Paperbase(props) {
             />
           </Hidden>
           <Hidden xsDown implementation="css">
-            <Navigator PaperProps={{ style: { width: drawerWidth } }} />
+            <Navigator
+              categories={categories}
+              PaperProps={{ style: { width: drawerWidth } }}
+            />
           </Hidden>
         </nav>
         <div className={classes.app}>
           <Header onDrawerToggle={handleDrawerToggle} />
           <main className={classes.main}>
-            <Content />
+            <Content activeChild={props.children} />
           </main>
           <footer className={classes.footer}>
             <Copyright />
