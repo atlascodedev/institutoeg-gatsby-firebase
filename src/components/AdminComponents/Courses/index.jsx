@@ -16,7 +16,10 @@ function Courses(props) {
 
   return (
     <AdminLayout>
-      <CourseTabs getCourseLevels={firestoreMethods.getCourseLevels} addCourseLevel={firestoreMethods.addCourseLevel} />
+      <CourseTabs
+        getCourseLevels={firestoreMethods.getCourseLevels}
+        addCourseLevel={firestoreMethods.addCourseLevel}
+      />
     </AdminLayout>
   )
 }

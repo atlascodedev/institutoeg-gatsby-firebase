@@ -1,99 +1,12 @@
-import {
-  Avatar,
-  Box,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Fade,
-  Grid,
-  IconButton,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemSecondaryAction,
-  ListItemText,
-  makeStyles,
-} from "@material-ui/core"
+import { Button, Fade, Grid, makeStyles } from "@material-ui/core"
+import { School } from "@material-ui/icons"
 import React from "react"
-import { Form, Formik } from "formik"
-import * as Yup from "yup"
-import FormikField from "../../../UtilityComponents/FormikField"
-import { Delete, School } from "@material-ui/icons"
+import CourseAddLevelCard from "./CourseAddLevelCard"
+import CourseLevelCard from "./CourseLevelCard"
 
 const useStyles = makeStyles(theme => ({
   root: {},
 }))
-
-const CourseAddLevelCard = ({ open, handleClose, addCourseLevel }) => {
-  return (
-    <React.Fragment>
-      <Fade in={true} timeout={{ enter: 500 }}>
-        <div>
-          <Formik
-            initialValues={{
-              courseLevel: "",
-            }}
-            validationSchema={Yup.object({
-              courseLevel: Yup.string().required(
-                "É necessário fornecer um nome para o nível do curso"
-              ),
-            })}
-            onSubmit={(values, action) => {
-              addCourseLevel(values.courseLevel)
-
-              action.resetForm()
-              action.setSubmitting(false)
-
-              handleClose()
-            }}
-          >
-            {formik => (
-              <Form>
-                <Dialog open={open} onClose={handleClose}>
-                  <DialogTitle>Criar um novo nível de curso</DialogTitle>
-                  <DialogContent>
-                    <DialogContentText>
-                      Digite o nome do nível de curso e clique em{" "}
-                      <strong>criar nível</strong>
-                    </DialogContentText>
-                    <Box py={1}>
-                      <FormikField
-                        name="courseLevel"
-                        margin="dense"
-                        label="Pós-graduação, extensão..."
-                        fullWidth
-                      ></FormikField>
-                    </Box>
-                  </DialogContent>
-                  <DialogActions>
-                    <Button
-                      onClick={handleClose}
-                      color="primary"
-                      variant="outlined"
-                    >
-                      Cancelar
-                    </Button>
-
-                    <Button
-                      onClick={formik.handleSubmit}
-                      color="primary"
-                      variant="contained"
-                    >
-                      Criar nível
-                    </Button>
-                  </DialogActions>
-                </Dialog>
-              </Form>
-            )}
-          </Formik>
-        </div>
-      </Fade>
-    </React.Fragment>
-  )
-}
 
 function CourseAddLevel({ addCourseLevel, getCourseLevels }) {
   const classes = useStyles()
@@ -139,7 +52,29 @@ function CourseAddLevel({ addCourseLevel, getCourseLevels }) {
         </Grid>
         <Grid item container justify="center">
           {courseLevels && courseLevels.length > 0 ? (
-            <p>ALO ALO</p>
+            courseLevels.map((courseLevel, index) => (
+              <Grid
+                xs={12}
+                sm={6}
+                md={4}
+                key={index}
+                item
+                container
+                justify="center"
+              >
+                <Fade in={true} timeout={{ enter: 500 * index }}>
+                  <div>
+                    <CourseLevelCard
+                      caption={courseLevel.courseLevelName}
+                      icon={School}
+                      remove={null}
+                      subcaption="Nível de curso"
+                      uid={123}
+                    ></CourseLevelCard>
+                  </div>
+                </Fade>
+              </Grid>
+            ))
           ) : (
             <p>
               Nenhum nível de curso encontrado, adicione um nível de curso para
