@@ -43,7 +43,7 @@ const tableIcons = {
   Save: forwardRef((props, ref) => <Save {...props} ref={ref} />),
 }
 
-const MaterialGrid = () => {
+const MaterialGrid = ({ handleOpen, sales }) => {
   const tableRef = React.useRef(null)
   const [errorAlert, setErrorAlert] = React.useState(false)
 
@@ -95,9 +95,8 @@ const MaterialGrid = () => {
             field: "upfrontValue",
           },
           { title: "Parcelas", field: "installments" },
-          { title: "Data", field: "date", type: "date" },
         ]}
-        data={[]}
+        data={sales}
         actions={[
           {
             icon: Edit,
@@ -115,7 +114,7 @@ const MaterialGrid = () => {
             icon: Add,
             tooltip: "Adicionar venda",
             isFreeAction: true,
-            onClick: event => alert("You clicked to add a user"),
+            onClick: handleOpen,
           },
           rowData => ({
             icon: Delete,

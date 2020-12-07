@@ -188,8 +188,7 @@ class FirestoreMethods {
     student,
     course,
     upfrontValue,
-    installments,
-    date
+    installments
   ) => {
     this.salesRef
       .add({
