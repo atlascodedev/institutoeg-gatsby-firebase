@@ -92,7 +92,7 @@ const MaterialGrid = () => {
           { title: "Curso", field: "course" },
           {
             title: "Entrada",
-            field: "upfront_value",
+            field: "upfrontValue",
           },
           { title: "Parcelas", field: "installments" },
           { title: "Data", field: "date", type: "date" },

@@ -8,6 +8,7 @@ class FirestoreMethods {
     this.courseLevelRef = this.db.collection("courseLevels")
     this.courseRef = this.db.collection("courses")
     this.studentRef = this.db.collection("students")
+    this.salesRef = this.db.collection("sales")
   }
   getCourseAreas = (callback = null) => {
     let unsub = this.courseAreaRef.onSnapshot(result => {
@@ -162,6 +163,98 @@ class FirestoreMethods {
       })
       .catch(error => {
         console.error(error, "An error occurred")
+      })
+  }
+
+  getSales = (callback = null) => {
+    let unsub = this.salesRef.onSnapshot(salesSnapshot => {
+      let salesArray = []
+
+      salesSnapshot.forEach(sales => {
+        salesArray.push(sales.data())
+      })
+
+      if (typeof callback === "function" && callback) {
+        callback(salesArray)
+      }
+    })
+
+    return unsub
+  }
+
+  createSale = (
+    value,
+    salesman,
+    student,
+    course,
+    upfrontValue,
+    installments,
+    date
+  ) => {
+    this.salesRef
+      .add({
+        uid: nanoid(),
+        value: value,
+        salesman: salesman,
+        student: student,
+        course: course,
+        upfrontValue: upfrontValue,
+        installments: installments,
+        date: this.firestoreNamespace.Timestamp.now(),
+      })
+      .then(result => {
+        console.log(result, "Sale created with success")
+      })
+      .catch(error => {
+        console.error(error, "An erro occured while creating a sale entry")
+      })
+  }
+
+  deleteSalesBatch = uidArray => {
+    uidArray.forEach(uid => {
+      this.salesRef
+        .where("uid", "==", uid)
+        .get()
+        .then(salesSnapshot => {
+          salesSnapshot.forEach(sale => sale.ref.delete())
+        })
+        .then(() => {
+          console.log("Sale deleted with success")
+        })
+        .catch(error => {
+          console.error(
+            error,
+            "An error occured while trying to delete a batch of sales entry"
+          )
+        })
+    })
+  }
+
+  updateSale = (
+    uid,
+    value,
+    salesman,
+    student,
+    course,
+    upfrontValue,
+    installments,
+    date
+  ) => {
+    this.salesRef
+      .where("uid", "==", uid)
+      .get()
+      .then(salesSnapshot => {
+        salesSnapshot.forEach(sale => {
+          sale.ref.update({
+            value: value,
+            salesman: salesman,
+            student: student,
+            course: course,
+            upfrontValue: upfrontValue,
+            installments: installments,
+            date: date,
+          })
+        })
       })
   }
 }

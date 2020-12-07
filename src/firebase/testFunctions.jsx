@@ -7,7 +7,8 @@ const firebase = app.initializeApp()
 
 const db = firebase.firestore()
 
-app.firestore.Timestamp.now()
+
+app.firestore.Timestamp.fromDate()
 
 class FirebaseAuth {
   constructor() {
@@ -45,6 +46,7 @@ class FirestoreMethods {
     this.courseLevelRef = db.collection("courseLevels")
     this.courseRef = db.collection("courses")
     this.studentRef = this.db.collection("students")
+    this.salesRef = this.db.collection("sales")
   }
 
   getCourseAreas = (callback = null) => {
@@ -200,6 +202,34 @@ class FirestoreMethods {
       })
       .catch(error => {
         console.error(error, "An error occurred")
+      })
+  }
+
+  createSale = (
+    value,
+    salesman,
+    student,
+    course,
+    upfrontValue,
+    installments,
+    date
+  ) => {
+    this.salesRef
+      .add({
+        uid: nanoid(),
+        value: value,
+        salesman: salesman,
+        student: student,
+        course: course,
+        upfrontValue: upfrontValue,
+        installments: installments,
+        date: date,
+      })
+      .then(result => {
+        console.log(result, "Sale created with success")
+      })
+      .catch(error => {
+        console.error(error, "An erro occured while creating a sale entry")
       })
   }
 }
