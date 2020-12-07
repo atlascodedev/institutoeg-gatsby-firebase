@@ -17,6 +17,7 @@ import Search from "@material-ui/icons/Search"
 import ViewColumn from "@material-ui/icons/ViewColumn"
 import { Add, Delete, Save } from "@material-ui/icons"
 import AlertFlex from "../../../UtilityComponents/AlertFlex"
+import ConfirmationDialog from "../../../UtilityComponents/ConfirmationDialog"
 
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -43,16 +44,52 @@ const tableIcons = {
   Save: forwardRef((props, ref) => <Save {...props} ref={ref} />),
 }
 
-const MaterialGrid = ({ handleOpen, sales }) => {
+const MaterialGrid = ({ handleOpen, sales, deleteSales }) => {
   const tableRef = React.useRef(null)
   const [errorAlert, setErrorAlert] = React.useState(false)
+  const [salesDeleteDialog, setSalesDeleteDialog] = React.useState(false)
+  const [selectedSales, setSelectedSales] = React.useState([])
+  const [saleValues, setSaleValues] = React.useState({
+    uid: "",
+    value: "",
+    salesman: "",
+    student: "",
+    course: "",
+    upfrontValue: "",
+    installments: "",
+  })
 
   const handleErrorAlertClose = () => {
     setErrorAlert(false)
   }
 
+  const handleSalesDeleteDialogOpen = () => {
+    setSalesDeleteDialog(true)
+  }
+
+  const handleSalesDeleteDialogClose = () => {
+    setSalesDeleteDialog(false)
+  }
+
+  const salesDeleteCallback = () => {
+    let salesArray = []
+
+    selectedSales.forEach(sale => {
+      salesArray.push(sale.uid)
+    })
+
+    deleteSales(salesArray)
+  }
+
   return (
     <div>
+      <ConfirmationDialog
+        open={salesDeleteDialog}
+        type="warning"
+        dialogClose={handleSalesDeleteDialogClose}
+        callback={salesDeleteCallback}
+        message="Atenção, esta ação é irreversível. Você está prestes a deletar registros de venda"
+      ></ConfirmationDialog>
       <AlertFlex
         autoHideDuration={3000}
         severity="error"
@@ -61,6 +98,9 @@ const MaterialGrid = ({ handleOpen, sales }) => {
         handleClose={handleErrorAlertClose}
       ></AlertFlex>
       <MaterialTable
+        onSelectionChange={data => {
+          setSelectedSales(data)
+        }}
         tableRef={tableRef}
         localization={{
           body: {
@@ -119,7 +159,9 @@ const MaterialGrid = ({ handleOpen, sales }) => {
           rowData => ({
             icon: Delete,
             tooltip: "Excluir uma venda",
-            onClick: (event, rowData) => {},
+            onClick: (event, rowData) => {
+              handleSalesDeleteDialogOpen()
+            },
           }),
         ]}
         options={{

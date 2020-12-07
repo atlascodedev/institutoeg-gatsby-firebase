@@ -43,7 +43,11 @@ function Sales(props) {
         handleClose={handleSalesCardClose}
       ></SalesCreateCard>
       <div className={classes.root}>
-        <SalesTable sales={sales} handleOpen={handleSalesCardOpen}></SalesTable>
+        <SalesTable
+          deleteSales={firestoreMethods.deleteSalesBatch}
+          sales={sales}
+          handleOpen={handleSalesCardOpen}
+        ></SalesTable>
       </div>
     </AdminLayout>
   )
