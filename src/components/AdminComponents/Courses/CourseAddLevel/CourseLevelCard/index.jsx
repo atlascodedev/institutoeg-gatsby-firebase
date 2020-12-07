@@ -9,7 +9,6 @@ import {
 import { Delete, Edit, School } from "@material-ui/icons"
 import React, { useState } from "react"
 
-
 const useStyles = makeStyles(theme => ({
   rootIcon: {
     flexGrow: 2,
@@ -79,44 +78,46 @@ function CourseLevelCard({
   }
 
   return (
-    <Paper className={classes.customPaper}>
-      <Grid container>
-        <Grid className={classes.rootIcon} item>
-          <SvgIcon className={classes.icon} fontSize="large">
-            <IconComponent />
-          </SvgIcon>
-        </Grid>
+    <div>
+      <Paper className={classes.customPaper}>
+        <Grid container>
+          <Grid className={classes.rootIcon} item>
+            <SvgIcon className={classes.icon} fontSize="large">
+              <IconComponent />
+            </SvgIcon>
+          </Grid>
 
-        <Grid item className={classes.cardCaption}>
-          <Typography variant="caption">{caption}</Typography>
-          <Typography className={classes.subText} variant="caption">
-            {subcaption}
-          </Typography>
-        </Grid>
+          <Grid item className={classes.cardCaption}>
+            <Typography variant="caption">{caption}</Typography>
+            <Typography className={classes.subText} variant="caption">
+              {subcaption}
+            </Typography>
+          </Grid>
 
-        <Grid
-          item
-          className={classes.actionIconContainer}
-          container
-          style={{ width: "auto" }}
-        >
-          <Grid className={classes.actionIcon} item>
+          <Grid
+            item
+            className={classes.actionIconContainer}
+            container
+            style={{ width: "auto" }}
+          >
+            {/* <Grid className={classes.actionIcon} item>
             <IconButton
               onClick={handleDialogOpen}
               className={classes.buttonIcon}
             >
               <Edit></Edit>
             </IconButton>
-          </Grid>
+          </Grid> */}
 
-          <Grid className={classes.actionIcon} item>
-            <IconButton onClick={remove} className={classes.buttonIcon}>
-              <Delete></Delete>
-            </IconButton>
+            <Grid className={classes.actionIcon} item>
+              <IconButton onClick={remove} className={classes.buttonIcon}>
+                <Delete></Delete>
+              </IconButton>
+            </Grid>
           </Grid>
         </Grid>
-      </Grid>
-    </Paper>
+      </Paper>
+    </div>
   )
 }
 

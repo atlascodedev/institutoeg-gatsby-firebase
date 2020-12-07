@@ -42,14 +42,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />
 })
 
-function ConfirmationDialog({
-  open,
-  dialogClose,
-  message,
-  title,
-  type,
-  callback,
-}) {
+function ConfirmationDialog({ open, dialogClose, message, type, callback }) {
   const classes = useStyles()
 
   const handleConfirmation = () => {

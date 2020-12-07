@@ -1,6 +1,7 @@
 import { Button, Fade, Grid, makeStyles } from "@material-ui/core"
 import { School } from "@material-ui/icons"
 import React from "react"
+import ConfirmationDialog from "../../../UtilityComponents/ConfirmationDialog"
 import CourseAddLevelCard from "./CourseAddLevelCard"
 import CourseLevelCard from "./CourseLevelCard"
 
@@ -8,18 +9,17 @@ const useStyles = makeStyles(theme => ({
   root: {},
 }))
 
-function CourseAddLevel({ addCourseLevel, getCourseLevels }) {
+function CourseAddLevel({
+  addCourseLevel,
+  getCourseLevels,
+  deleteCourseLevel,
+}) {
   const classes = useStyles()
 
   const [addLevelCard, setAddLevelCard] = React.useState(false)
   const [courseLevels, setCourseLevels] = React.useState([])
-
-  const handleAddLevelCardOpen = () => {
-    setAddLevelCard(true)
-  }
-  const handleAddLevelCardClose = () => {
-    setAddLevelCard(false)
-  }
+  const [courseDeleteDialog, setCourseDeleteDialog] = React.useState(false)
+  const [selectedCourseLevel, setSelectedCourseLevel] = React.useState(0)
 
   React.useEffect(() => {
     const unsub = getCourseLevels(courseLevelsArray => {
@@ -31,7 +31,26 @@ function CourseAddLevel({ addCourseLevel, getCourseLevels }) {
     }
   }, [])
 
-  console.log(courseLevels)
+  const handleAddLevelCardOpen = () => {
+    setAddLevelCard(true)
+  }
+  const handleAddLevelCardClose = () => {
+    setAddLevelCard(false)
+  }
+
+  const handleCourseDeleteDialogOpen = () => {
+    setCourseDeleteDialog(true)
+  }
+
+  const handleCourseDeleteDialogClose = () => {
+    setCourseDeleteDialog(false)
+  }
+
+  const deleteCourseLevelDialogCallback = () => {
+    deleteCourseLevel(selectedCourseLevel)
+  }
+
+  console.log(selectedCourseLevel)
 
   return (
     <div className={classes.root}>
@@ -39,6 +58,13 @@ function CourseAddLevel({ addCourseLevel, getCourseLevels }) {
         handleClose={handleAddLevelCardClose}
         open={addLevelCard}
         addCourseLevel={addCourseLevel}
+      />
+      <ConfirmationDialog
+        type="warning"
+        open={courseDeleteDialog}
+        dialogClose={handleCourseDeleteDialogClose}
+        message="Atenção, está ação é irreversível. Você está prestes a deletar um nível de curso"
+        callback={deleteCourseLevelDialogCallback}
       />
       <Grid container justify="center">
         <Grid item container justify="center">
@@ -62,14 +88,22 @@ function CourseAddLevel({ addCourseLevel, getCourseLevels }) {
                 container
                 justify="center"
               >
-                <Fade in={true} timeout={{ enter: 500 * index }}>
+                <Fade
+                  in={true}
+                  mountOnEnter
+                  unmountOnExit
+                  timeout={{ enter: 750, exit: 750 }}
+                >
                   <div>
                     <CourseLevelCard
                       caption={courseLevel.courseLevelName}
                       icon={School}
-                      remove={null}
+                      remove={() => {
+                        handleCourseDeleteDialogOpen()
+                        setSelectedCourseLevel(courseLevel.uid)
+                      }}
                       subcaption="Nível de curso"
-                      uid={123}
+                      uid={courseLevel.uid}
                     ></CourseLevelCard>
                   </div>
                 </Fade>

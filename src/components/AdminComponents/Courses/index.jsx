@@ -19,6 +19,7 @@ function Courses(props) {
       <CourseTabs
         getCourseLevels={firestoreMethods.getCourseLevels}
         addCourseLevel={firestoreMethods.addCourseLevel}
+        deleteCourseLevel={firestoreMethods.deleteCourseLevel}
       />
     </AdminLayout>
   )

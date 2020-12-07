@@ -294,6 +294,33 @@ class FirestoreMethods {
 
     return unsub
   }
+
+  deleteCourseLevel = uid => {
+    this.courseLevelRef
+      .where("uid", "==", uid)
+      .get()
+      .then(courseLevelSnapshot => {
+        courseLevelSnapshot.forEach(courseLevel => {
+          courseLevel.ref
+            .delete()
+            .then(result => {
+              console.log(result, "Removed course level with success")
+            })
+            .catch(error => {
+              console.log(
+                error,
+                "There was an error while trying to remove a course level"
+              )
+            })
+        })
+      })
+      .catch(error => {
+        console.log(
+          error,
+          "There was an error while trying to fetch the specific course level"
+        )
+      })
+  }
 }
 
 export default FirestoreMethods
