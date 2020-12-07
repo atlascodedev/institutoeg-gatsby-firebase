@@ -1,59 +1,21 @@
-import app from "firebase/app"
-import "firebase/auth"
-import "firebase/firestore"
 import { nanoid } from "nanoid"
 
-const firebase = app.initializeApp()
-
-const db = firebase.firestore()
-
-app.firestore.Timestamp.now()
-
-class FirebaseAuth {
-  constructor() {
-    this.auth = firebase.auth()
-    this.db = firebase.firestore()
-  }
-
-  logoutUser = () => {
-    this.auth
-      .signOut()
-      .then(result => {
-        console.log(result, "user was logged out")
-      })
-      .catch(error => {
-        console.log(error, "Could not logout user")
-      })
-  }
-
-  loginUser = (email, password) => {
-    this.auth
-      .signInWithEmailAndPassword(email, password)
-      .then(success => {
-        console.log(success, "User was logged in")
-      })
-      .catch(error => {
-        console.log(error)
-      })
-  }
-}
-
 class FirestoreMethods {
-  constructor() {
-    this.db = db
-    this.courseAreaRef = db.collection("courseAreas")
-    this.courseLevelRef = db.collection("courseLevels")
-    this.courseRef = db.collection("courses")
+  constructor(firestoreInstance, firestoreNamespace) {
+    this.firestoreNamespace = firestoreNamespace
+    this.db = firestoreInstance
+    this.courseAreaRef = this.db.collection("courseAreas")
+    this.courseLevelRef = this.db.collection("courseLevels")
+    this.courseRef = this.db.collection("courses")
     this.studentRef = this.db.collection("students")
   }
-
   getCourseAreas = (callback = null) => {
     let unsub = this.courseAreaRef.onSnapshot(result => {
       result.forEach(doc => {
         console.log(doc.data())
       })
 
-      if (callback) {
+      if (typeof callback === "function" && callback) {
         callback()
       }
     })
@@ -67,7 +29,7 @@ class FirestoreMethods {
         console.log(doc.data())
       })
 
-      if (callback) {
+      if (typeof callback === "function" && callback) {
         callback()
       }
     })
@@ -81,7 +43,7 @@ class FirestoreMethods {
         console.log(doc.data())
       })
 
-      if (callback) {
+      if (typeof callback === "function" && callback) {
         callback()
       }
     })
@@ -158,8 +120,8 @@ class FirestoreMethods {
         .then(studentSnapshot => {
           studentSnapshot.forEach(student => student.ref.delete())
         })
-        .then(result => {
-          console.log(result)
+        .then(() => {
+          console.log("Deleted with success")
         })
         .catch(error => {
           console.log(error)
@@ -203,3 +165,5 @@ class FirestoreMethods {
       })
   }
 }
+
+export default FirestoreMethods

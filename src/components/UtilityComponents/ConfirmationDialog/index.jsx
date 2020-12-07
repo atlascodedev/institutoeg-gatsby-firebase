@@ -11,7 +11,7 @@ import {
   Slide,
   SvgIcon,
 } from "@material-ui/core"
-import { CheckCircle } from "@material-ui/icons"
+import { CheckCircle, Error, Warning } from "@material-ui/icons"
 import React from "react"
 
 const useStyles = makeStyles(theme => ({
@@ -19,7 +19,6 @@ const useStyles = makeStyles(theme => ({
 
   dialogIcon: {
     fontSize: "8em",
-    color: "green",
     margin: "0.25em 0.5em 0.5em 0.5em",
   },
 
@@ -33,20 +32,58 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 500,
     marginBottom: "1.75em",
   },
+
+  dialogTitleText: {
+    fontSize: "1.75em",
+  },
 }))
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />
 })
 
-function ConfirmationDialog({ open, dialogClose, message, title }) {
+function ConfirmationDialog({
+  open,
+  dialogClose,
+  message,
+  title,
+  type,
+  callback,
+}) {
   const classes = useStyles()
+
+  const handleConfirmation = () => {
+    if (typeof callback === "function" && callback) {
+      callback()
+      dialogClose()
+    } else {
+      dialogClose()
+    }
+  }
 
   const messageText = message
     ? message
     : "Placeholder lorem ipsum message pass the MESSAGE prop to this component to replace it"
 
-  const messageTitle = title ? title : "Place holder title"
+  const messageTitle =
+    type == "success"
+      ? "Sucesso"
+      : type == "warning"
+      ? "Aviso"
+      : type == "error"
+      ? "Erro"
+      : "No type or title was supplied"
+
+  const confirmationDialogType =
+    type == "success" ? (
+      <CheckCircle style={{ color: "green" }} />
+    ) : type == "warning" ? (
+      <Warning style={{ color: "#f5cb10" }} />
+    ) : type == "error" ? (
+      <Error style={{ fill: "#c31e1e" }} />
+    ) : (
+      "Dialog type was not provided"
+    )
 
   return (
     <div>
@@ -56,14 +93,14 @@ function ConfirmationDialog({ open, dialogClose, message, title }) {
         open={open}
       >
         <DialogTitle className={classes.dialogTitle}>
-          {messageTitle}
+          <Box className={classes.dialogTitleText}>{messageTitle}</Box>
         </DialogTitle>
         <DialogContent dividers>
           <Container>
             <Grid container justify="center">
               <Grid item container justify="center">
                 <SvgIcon className={classes.dialogIcon}>
-                  <CheckCircle></CheckCircle>
+                  {confirmationDialogType}
                 </SvgIcon>
               </Grid>
 
@@ -74,8 +111,16 @@ function ConfirmationDialog({ open, dialogClose, message, title }) {
           </Container>
         </DialogContent>
         <DialogActions>
-          <Button onClick={dialogClose} color="secondary" variant="outlined">
-            Entendido
+          <Button onClick={dialogClose} color="primary" variant="outlined">
+            Cancelar
+          </Button>
+
+          <Button
+            onClick={handleConfirmation}
+            color="primary"
+            variant="contained"
+          >
+            Confirmar
           </Button>
         </DialogActions>
       </Dialog>

@@ -1,12 +1,6 @@
 import React from "react"
-import { FirebaseGlobalContext } from "../firebase/globalContext"
 
 function IndexPage(props) {
-  const firebase = React.useContext(FirebaseGlobalContext)
-
-  const firestore = firebase.firestoreMethods
-
-  console.log(firestore)
   return (
     <div
       style={{
@@ -20,7 +14,6 @@ function IndexPage(props) {
     >
       CLEAN POGU
       {/* <button onClick={auth.logoutUser}>Logout user</button> */}
-      <button onClick={firestore.getCourseAreas}>Get course area</button>
     </div>
   )
 }

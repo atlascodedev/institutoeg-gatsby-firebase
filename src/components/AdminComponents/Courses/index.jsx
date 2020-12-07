@@ -1,7 +1,6 @@
 import { makeStyles } from "@material-ui/core"
 import React from "react"
 import AdminLayout from "../AdminLayout/Paperbase"
-import Datagrid from "../Datagrid"
 
 const useStyles = makeStyles(theme => ({
   datagrid: {
@@ -16,9 +15,7 @@ function Courses(props) {
     <AdminLayout>
       <div>this is the courses component</div>
 
-      <div className={classes.datagrid}>
-        <Datagrid></Datagrid>
-      </div>
+      <div className={classes.datagrid}></div>
     </AdminLayout>
   )
 }

@@ -5,7 +5,7 @@ import Login from "../components/AdminComponents/Login"
 import Dashboard from "../components/AdminComponents/Dashboard"
 import Students from "../components/AdminComponents/Students"
 import Courses from "../components/AdminComponents/Courses"
-import Salesmen from "../components/AdminComponents/Salesmen"
+import Sales from "../components/AdminComponents/Salesmen"
 import Messages from "../components/AdminComponents/Messages"
 import PrivateRoute from "../components/AdminComponents/PrivateRoute"
 import { FirebaseAuthContext } from "../authentication/context"
@@ -43,8 +43,8 @@ function Admin(props) {
 
       <PrivateRoute
         isAuth={isAuth}
-        component={Salesmen}
-        path={"/admin/vendedores"}
+        component={Sales}
+        path={"/admin/vendas"}
       ></PrivateRoute>
 
       <PrivateRoute

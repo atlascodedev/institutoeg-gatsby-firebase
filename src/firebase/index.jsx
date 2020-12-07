@@ -1,14 +1,18 @@
 import config from "../config/firebase.config"
-import FirebaseAuthMethods from "../authentication/firebaseAuthMethods"
-import FirestoreMethods from "../firestore/firestoreMethods"
+import FirebaseAuthMethods from "./firebaseAuthMethods"
+import FirestoreMethods from "./firestoreMethods"
 
 class Firebase {
   constructor(app) {
     app.initializeApp(config)
 
+    this.firestoreNamespace = app.firestore
     this.auth = app.auth()
     this.db = app.firestore()
-    this.firestoreMethods = new FirestoreMethods(this.db)
+    this.firestoreMethods = new FirestoreMethods(
+      this.db,
+      this.firestoreNamespace
+    )
     this.firebaseAuth = new FirebaseAuthMethods(this.auth)
 
     if (process.env.NODE_ENV !== "production") {
@@ -22,9 +26,9 @@ class Firebase {
       )
     }
 
-    this.db.enablePersistence({
-      synchronizeTabs: true,
-    })
+    // this.db.enablePersistence({
+    //   synchronizeTabs: true,
+    // })
   }
 }
 

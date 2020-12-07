@@ -188,9 +188,9 @@ const categories = [
       },
       { id: "Cursos", icon: <DnsRoundedIcon />, path: "/admin/cursos" },
       {
-        id: "Vendedores",
+        id: "Vendas",
         icon: <PermMediaOutlinedIcon />,
-        path: "/admin/vendedores",
+        path: "/admin/vendas",
       },
       { id: "Mensagens", icon: <PublicIcon />, path: "/admin/mensagens" },
     ],

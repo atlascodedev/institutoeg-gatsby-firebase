@@ -1,5 +1,5 @@
 import React from "react"
-import { FirebaseGlobalContext } from "../firebase/globalContext"
+import { FirebaseGlobalContext } from "../context/globalContext"
 
 export const FirebaseAuthContext = React.createContext(null)
 

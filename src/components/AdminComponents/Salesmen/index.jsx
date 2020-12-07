@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-function Salesmen(props) {
+function Sales(props) {
   const classes = useStyles()
 
   return (
@@ -21,4 +21,4 @@ function Salesmen(props) {
   )
 }
 
-export default Salesmen
+export default Sales
