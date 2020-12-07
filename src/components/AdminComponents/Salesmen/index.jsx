@@ -44,6 +44,7 @@ function Sales(props) {
       ></SalesCreateCard>
       <div className={classes.root}>
         <SalesTable
+        updateSales={firestoreMethods.updateSales}
           deleteSales={firestoreMethods.deleteSalesBatch}
           sales={sales}
           handleOpen={handleSalesCardOpen}

@@ -229,30 +229,35 @@ class FirestoreMethods {
     })
   }
 
-  updateSale = (
+  updateSales = (
     uid,
     value,
     salesman,
     student,
     course,
     upfrontValue,
-    installments,
-    date
+    installments
   ) => {
     this.salesRef
       .where("uid", "==", uid)
       .get()
       .then(salesSnapshot => {
         salesSnapshot.forEach(sale => {
-          sale.ref.update({
-            value: value,
-            salesman: salesman,
-            student: student,
-            course: course,
-            upfrontValue: upfrontValue,
-            installments: installments,
-            date: date,
-          })
+          sale.ref
+            .update({
+              value: value,
+              salesman: salesman,
+              student: student,
+              course: course,
+              upfrontValue: upfrontValue,
+              installments: installments,
+            })
+            .then(() => {
+              console.log("Sale entry was updated with success")
+            })
+            .catch(error => {
+              console.log(error, "There was an error updating a sales entry")
+            })
         })
       })
   }

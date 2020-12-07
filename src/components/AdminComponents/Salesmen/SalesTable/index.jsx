@@ -18,6 +18,7 @@ import ViewColumn from "@material-ui/icons/ViewColumn"
 import { Add, Delete, Save } from "@material-ui/icons"
 import AlertFlex from "../../../UtilityComponents/AlertFlex"
 import ConfirmationDialog from "../../../UtilityComponents/ConfirmationDialog"
+import SalesUpdateCard from "../SalesUpdateCard"
 
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -44,12 +45,13 @@ const tableIcons = {
   Save: forwardRef((props, ref) => <Save {...props} ref={ref} />),
 }
 
-const MaterialGrid = ({ handleOpen, sales, deleteSales }) => {
+const MaterialGrid = ({ handleOpen, sales, deleteSales, updateSales }) => {
   const tableRef = React.useRef(null)
   const [errorAlert, setErrorAlert] = React.useState(false)
   const [salesDeleteDialog, setSalesDeleteDialog] = React.useState(false)
+  const [salesUpdateDialog, setSalesUpdateDialog] = React.useState(false)
   const [selectedSales, setSelectedSales] = React.useState([])
-  const [saleValues, setSaleValues] = React.useState({
+  const [salesValues, setSalesValues] = React.useState({
     uid: "",
     value: "",
     salesman: "",
@@ -81,8 +83,22 @@ const MaterialGrid = ({ handleOpen, sales, deleteSales }) => {
     deleteSales(salesArray)
   }
 
+  const handleSalesUpdateDialogOpen = () => {
+    setSalesUpdateDialog(true)
+  }
+
+  const handleSalesUpdateDialogClose = () => {
+    setSalesUpdateDialog(false)
+  }
+
   return (
     <div>
+      <SalesUpdateCard
+        salesValues={salesValues}
+        open={salesUpdateDialog}
+        handleClose={handleSalesUpdateDialogClose}
+        updateSales={updateSales}
+      ></SalesUpdateCard>
       <ConfirmationDialog
         open={salesDeleteDialog}
         type="warning"
@@ -146,7 +162,10 @@ const MaterialGrid = ({ handleOpen, sales, deleteSales }) => {
                 console.log("Edite apenas 1 por vez")
                 setErrorAlert(true)
               } else {
-                console.log("Good job")
+                handleSalesUpdateDialogOpen()
+                setSalesValues(rowData[0])
+
+                console.log(rowData[0], 'what')
               }
             },
           },

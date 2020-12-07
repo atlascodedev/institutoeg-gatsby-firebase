@@ -7,7 +7,6 @@ const firebase = app.initializeApp()
 
 const db = firebase.firestore()
 
-
 app.firestore.Timestamp.fromDate()
 
 class FirebaseAuth {
@@ -230,6 +229,41 @@ class FirestoreMethods {
       })
       .catch(error => {
         console.error(error, "An erro occured while creating a sale entry")
+      })
+  }
+
+  updateSales = (
+    uid,
+    value,
+    salesman,
+    student,
+    course,
+    upfrontValue,
+    installments,
+    date
+  ) => {
+    this.salesRef
+      .where("uid", "==", uid)
+      .get()
+      .then(salesSnapshot => {
+        salesSnapshot.forEach(sale => {
+          sale.ref
+            .update({
+              value: value,
+              salesman: salesman,
+              student: student,
+              course: course,
+              upfrontValue: upfrontValue,
+              installments: installments,
+              date: date,
+            })
+            .then(result => {
+              console.log(result)
+            })
+            .catch(error => {
+              console.log(error, "There was an error updating a sales entry")
+            })
+        })
       })
   }
 }
