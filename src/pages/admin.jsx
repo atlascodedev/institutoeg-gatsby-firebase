@@ -13,7 +13,7 @@ import { FirebaseAuthContext } from "../authentication/context"
 function Admin(props) {
   const isAuth = React.useContext(FirebaseAuthContext)
 
-  console.log(isAuth, 'aqui aqui aqui')
+  // console.log(isAuth, 'aqui aqui aqui')
 
   return (
     <Router>

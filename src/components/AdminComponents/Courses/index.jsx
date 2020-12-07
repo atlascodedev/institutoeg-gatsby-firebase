@@ -1,6 +1,8 @@
 import { makeStyles } from "@material-ui/core"
 import React from "react"
 import AdminLayout from "../AdminLayout/Paperbase"
+import CourseTabs from "./CourseTabs"
+import { FirebaseGlobalContext } from "../../../context/globalContext"
 
 const useStyles = makeStyles(theme => ({
   datagrid: {
@@ -10,12 +12,11 @@ const useStyles = makeStyles(theme => ({
 
 function Courses(props) {
   const classes = useStyles()
+  const { firestoreMethods } = React.useContext(FirebaseGlobalContext)
 
   return (
     <AdminLayout>
-      <div>this is the courses component</div>
-
-      <div className={classes.datagrid}></div>
+      <CourseTabs getCourseLevels={firestoreMethods.getCourseLevels} addCourseLevel={firestoreMethods.addCourseLevel} />
     </AdminLayout>
   )
 }

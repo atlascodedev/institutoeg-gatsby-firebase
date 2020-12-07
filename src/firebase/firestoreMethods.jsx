@@ -261,6 +261,39 @@ class FirestoreMethods {
         })
       })
   }
+
+  addCourseLevel = courseLevelName => {
+    this.courseLevelRef
+      .add({
+        uid: nanoid(),
+        courseLevelName: courseLevelName,
+      })
+      .then(result => {
+        console.log("Added a course level with success")
+      })
+      .catch(error => {
+        console.log(
+          error,
+          "There was an error while trying to create a new course level"
+        )
+      })
+  }
+
+  getCourseLevels = (callback = null) => {
+    let unsub = this.courseLevelRef.onSnapshot(courseLevelSnapshot => {
+      let courseLevelArray = []
+
+      courseLevelSnapshot.forEach(courseLevel => {
+        courseLevelArray.push(courseLevel.data())
+      })
+
+      if (typeof callback === "function" && callback) {
+        callback(courseLevelArray)
+      }
+    })
+
+    return unsub
+  }
 }
 
 export default FirestoreMethods
