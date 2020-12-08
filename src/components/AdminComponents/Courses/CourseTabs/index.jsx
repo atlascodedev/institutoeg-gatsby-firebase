@@ -6,6 +6,7 @@ import Tabs from "@material-ui/core/Tabs"
 import Tab from "@material-ui/core/Tab"
 import Box from "@material-ui/core/Box"
 import CourseAddLevel from "../CourseAddLevel"
+import CourseAddArea from "../CourseAddArea"
 
 function SimpleTabs(props) {
   const { children, value, index, ...other } = props
@@ -29,6 +30,9 @@ export default function CourseTabs({
   addCourseLevel,
   getCourseLevels,
   deleteCourseLevel,
+  createCourseArea,
+  getCourseAreas,
+  deleteCourseArea,
 }) {
   const classes = useStyles()
   const [value, setValue] = React.useState(0)
@@ -58,7 +62,12 @@ export default function CourseTabs({
         />
       </SimpleTabs>
       <SimpleTabs value={value} index={1}>
-        Item Two
+        <CourseAddArea
+          deleteCourseArea={deleteCourseArea}
+          createCourseArea={createCourseArea}
+          getCourseLevels={getCourseLevels}
+          getCourseAreas={getCourseAreas}
+        />
       </SimpleTabs>
       <SimpleTabs value={value} index={2}>
         Item Three

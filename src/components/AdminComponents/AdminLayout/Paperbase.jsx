@@ -155,6 +155,7 @@ const styles = {
   root: {
     display: "flex",
     minHeight: "100vh",
+    overflowY: "scroll",
   },
   drawer: {
     [theme.breakpoints.up("sm")]: {

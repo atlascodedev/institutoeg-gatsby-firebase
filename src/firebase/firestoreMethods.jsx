@@ -12,16 +12,36 @@ class FirestoreMethods {
   }
   getCourseAreas = (callback = null) => {
     let unsub = this.courseAreaRef.onSnapshot(result => {
+      let courseAreaArray = []
+
       result.forEach(doc => {
-        console.log(doc.data())
+        courseAreaArray.push(doc.data())
       })
 
       if (typeof callback === "function" && callback) {
-        callback()
+        callback(courseAreaArray)
       }
     })
 
     return unsub
+  }
+
+  createCourseArea = (courseAreaName, courseAreaLevel) => {
+    this.courseAreaRef
+      .add({
+        uid: nanoid(),
+        courseAreaName: courseAreaName,
+        courseAreaLevel: courseAreaLevel,
+      })
+      .then(result => {
+        console.log(result, "Success while adding a new course area")
+      })
+      .catch(error => {
+        console.log(
+          error,
+          "There was an error while trying to create a new course area"
+        )
+      })
   }
 
   getCourseLevels = (callback = null) => {
@@ -318,6 +338,33 @@ class FirestoreMethods {
         console.log(
           error,
           "There was an error while trying to fetch the specific course level"
+        )
+      })
+  }
+
+  deleteCourseArea = uid => {
+    this.courseAreaRef
+      .where("uid", "==", uid)
+      .get()
+      .then(courseAreaSnapshot => {
+        courseAreaSnapshot.forEach(courseArea => {
+          courseArea.ref
+            .delete()
+            .then(result => {
+              console.log(result, "Deleted a course area with success")
+            })
+            .catch(error => {
+              console.log(
+                error,
+                "An error occurred while trying to delete a course area"
+              )
+            })
+        })
+      })
+      .catch(error => {
+        console.log(
+          error,
+          "An error occurred while trying to fetch a course area"
         )
       })
   }

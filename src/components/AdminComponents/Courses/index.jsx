@@ -17,9 +17,12 @@ function Courses(props) {
   return (
     <AdminLayout>
       <CourseTabs
+        getCourseAreas={firestoreMethods.getCourseAreas}
         getCourseLevels={firestoreMethods.getCourseLevels}
         addCourseLevel={firestoreMethods.addCourseLevel}
         deleteCourseLevel={firestoreMethods.deleteCourseLevel}
+        createCourseArea={firestoreMethods.createCourseArea}
+        deleteCourseArea={firestoreMethods.deleteCourseArea}
       />
     </AdminLayout>
   )
