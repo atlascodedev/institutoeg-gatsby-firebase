@@ -13,6 +13,20 @@ const useStyles = makeStyles(theme => ({
 function Courses(props) {
   const classes = useStyles()
   const { firestoreMethods } = React.useContext(FirebaseGlobalContext)
+  const [courseAreas, setCourseAreas] = React.useState({})
+
+  React.useEffect(() => {
+    let unsubCourseAreas = firestoreMethods.getCourseAreas(courseAreaArray => {
+      setCourseAreas(prevData => ({
+        ...prevData,
+        courseAreas: courseAreaArray,
+      }))
+    })
+
+    return () => {
+      return unsubCourseAreas
+    }
+  }, [])
 
   return (
     <AdminLayout>
@@ -23,6 +37,7 @@ function Courses(props) {
         deleteCourseLevel={firestoreMethods.deleteCourseLevel}
         createCourseArea={firestoreMethods.createCourseArea}
         deleteCourseArea={firestoreMethods.deleteCourseArea}
+        courseAreas={courseAreas}
       />
     </AdminLayout>
   )

@@ -16,9 +16,8 @@ import SaveAlt from "@material-ui/icons/SaveAlt"
 import Search from "@material-ui/icons/Search"
 import ViewColumn from "@material-ui/icons/ViewColumn"
 import { Add, Delete, Save } from "@material-ui/icons"
-import AlertFlex from "../../../UtilityComponents/AlertFlex"
-import ConfirmationDialog from "../../../UtilityComponents/ConfirmationDialog"
-import StudentUpdateCard from "../StudentUpdateCard"
+import ConfirmationDialog from "../ConfirmationDialog"
+import AlertFlex from "../AlertFlex"
 
 const tableIcons = {
   Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -45,94 +44,74 @@ const tableIcons = {
   Save: forwardRef((props, ref) => <Save {...props} ref={ref} />),
 }
 
-const StudentTable = ({
-  students,
-  handleOpen,
-  deleteStudent,
-  updateStudent,
+const AtlasDatagrid = ({
+  data,
+  updateDialog: UpdateDialog,
+  addDialog: AddDialog,
+  dataTitle,
+  columns,
+  deleteCallback,
+  updateCallback,
+  createCallback,
+  additionalData,
 }) => {
   const tableRef = React.useRef(null)
   const [errorAlert, setErrorAlert] = React.useState(false)
-  const [selectedStudent, setSelectedStudent] = React.useState([])
-  const [studentValues, setStudentValues] = React.useState({
-    uid: "",
-    studentName: "",
-    studentLastname: "",
-    studentEmail: "",
-    studentPhone: "",
-    studentCourse: "",
-    studentGender: "",
-  })
+  const [selectionValues, setSelectionValues] = React.useState([])
+  const [selectedRowValue, setSelectedRowValue] = React.useState("")
   const [deleteDialog, setDeleteDialog] = React.useState(false)
   const [updateDialog, setUpdateDialog] = React.useState(false)
+  const [addDialogState, setAddDialogState] = React.useState(false)
 
-  const handleErrorAlertClose = () => {
-    setErrorAlert(false)
-  }
-
-  const handleDeleteDialogClose = () => {
-    setDeleteDialog(false)
-  }
-
-  const handleDeleteDialogOpen = () => {
-    setDeleteDialog(true)
-  }
-
-  const handleUpdateDialogOpen = () => {
-    setUpdateDialog(true)
-  }
-
-  const handleUpdateDialogClose = () => {
-    setUpdateDialog(false)
-  }
-
-  const handleStudentDeleteBatch = () => {
-    let studentUidArray = []
-
-    selectedStudent.forEach(student => {
-      studentUidArray.push(student.uid)
-    })
-
-    deleteStudent(studentUidArray)
-  }
-
-  console.log(students, "students here")
+  const activeColumns = columns ? columns : []
 
   return (
     <div>
       <ConfirmationDialog
         open={deleteDialog}
         type="warning"
-        dialogClose={handleDeleteDialogClose}
-        callback={handleStudentDeleteBatch}
-        message="Atenção, esta ação é irreversível. Você está prestes a deletar alunos."
+        dialogClose={() => setDeleteDialog(false)}
+        callback={deleteCallback}
+        message={`Atenção, esta ação é irreversível. Você está prestes a deletar ${dataTitle}s.`}
       />
-      <StudentUpdateCard
-        open={updateDialog}
-        handleClose={handleUpdateDialogClose}
-        updateStudent={updateStudent}
-        studentValues={studentValues}
-      ></StudentUpdateCard>
+
+      {UpdateDialog ? (
+        <UpdateDialog
+          open={updateDialog}
+          handleClose={() => setUpdateDialog(false)}
+          callback={updateCallback}
+          values={selectedRowValue}
+          additionalData={additionalData}
+        ></UpdateDialog>
+      ) : null}
+
+      <AddDialog
+        open={addDialogState}
+        handleClose={() => setAddDialogState(false)}
+        callback={createCallback}
+        additionalData={additionalData}
+      ></AddDialog>
+
       <AlertFlex
         autoHideDuration={3000}
         severity="error"
         open={errorAlert}
         message={"Por favor, edite apenas 1 entrada por vez"}
-        handleClose={handleErrorAlertClose}
+        handleClose={() => setErrorAlert(false)}
       ></AlertFlex>
       <MaterialTable
         onSelectionChange={data => {
-          setSelectedStudent(data)
+          setSelectionValues(data)
         }}
         tableRef={tableRef}
         localization={{
           body: {
-            emptyDataSourceMessage: "Nenhum aluno encontrado",
+            emptyDataSourceMessage: `Nenhum(a) ${dataTitle} encontrado(a)`,
           },
           toolbar: {
             searchTooltip: "Procurar por um campo específico",
             searchPlaceholder: "Pesquisar",
-            nRowsSelected: "{0} alunos selecionados",
+            nRowsSelected: `{0} ${dataTitle} selecionados`,
           },
           pagination: {
             labelRowsSelect: "linhas sendo exibidas",
@@ -147,50 +126,33 @@ const StudentTable = ({
           },
         }}
         icons={tableIcons}
-        title="Alunos"
-        columns={[
-          { title: "uid", field: "uid", hidden: true },
-          { title: "Nome", field: "studentName" },
-          { title: "Sobrenome", field: "studentLastname" },
-          { title: "E-mail", field: "studentEmail" },
-          {
-            title: "Gênero",
-            field: "studentGender",
-          },
-          {
-            title: "Telefone",
-            field: "studentPhone",
-          },
-          {
-            title: "Curso ativo",
-            field: "activeCourse",
-          },
-        ]}
-        data={students}
+        title={dataTitle + "s"}
+        columns={activeColumns}
+        data={data}
         actions={[
           {
             icon: Edit,
-            tooltip: "Editar um aluno",
+            tooltip: `Editar ${dataTitle}`,
             onClick: (event, rowData) => {
               if (tableRef.current.dataManager.selectedCount > 1) {
                 setErrorAlert(true)
               } else {
-                handleUpdateDialogOpen()
-                setStudentValues(rowData[0])
+                // handleUpdateDialogOpen()
+                setSelectedRowValue(rowData[0])
               }
             },
           },
           {
             icon: Add,
-            tooltip: "Adicionar aluno",
+            tooltip: `Adicionar ${dataTitle}`,
             isFreeAction: true,
-            onClick: event => handleOpen(),
+            onClick: event => setAddDialogState(true),
           },
           rowData => ({
             icon: Delete,
-            tooltip: "Excluir um aluno",
+            tooltip: `Excluir ${dataTitle}`,
             onClick: (event, rowData) => {
-              handleDeleteDialogOpen()
+              setDeleteDialog(true)
             },
           }),
         ]}
@@ -203,4 +165,4 @@ const StudentTable = ({
   )
 }
 
-export default StudentTable
+export default AtlasDatagrid

@@ -368,6 +368,22 @@ class FirestoreMethods {
         )
       })
   }
+
+  getCourses = (callback = null) => {
+    let unsub = this.courseRef.onSnapshot(courseSnapshot => {
+      let courseArray = []
+
+      courseSnapshot.forEach(course => {
+        courseArray.push(course.data())
+      })
+
+      if (typeof callback === "function" && callback) {
+        callback(courseArray)
+      }
+    })
+
+    return unsub
+  }
 }
 
 export default FirestoreMethods
