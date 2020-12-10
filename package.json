@@ -9,6 +9,7 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.57",
     "axios": "^0.21.0",
+    "cross-env": "^7.0.3",
     "firebase": "^8.1.1",
     "formik": "^2.2.5",
     "gatsby": "^2.26.1",
@@ -19,6 +20,7 @@
     "gatsby-plugin-react-helmet": "^3.4.0",
     "gatsby-plugin-sharp": "^2.8.0",
     "gatsby-source-filesystem": "^2.5.0",
+    "gatsby-source-multi-api": "^1.0.5",
     "gatsby-transformer-sharp": "^2.6.0",
     "localforage": "^1.9.0",
     "material-table": "^1.69.2",
@@ -46,6 +48,7 @@
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean && gatsby develop",
+    "dev": "cross-env ENABLE_GATSBY_REFRESH_ENDPOINT=true GATSBY_GRAPHQL_IDE=playground gatsby develop",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
     "emulators": "firebase emulators:start --export-on-exit=./emulator-data --import=./emulator-data"
   },

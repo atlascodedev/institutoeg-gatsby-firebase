@@ -1,6 +1,6 @@
 import React from "react"
 
-function IndexPage(props) {
+function IndexPage() {
   return (
     <div
       style={{

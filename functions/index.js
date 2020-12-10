@@ -76,7 +76,7 @@ app.get("/courseLevels", (req, res) => {
       return courseLevelsArray
     })
     .then(courseLevelsArrayResult => {
-      return res.json(courseLevelsArrayResult).status(200)
+      return res.send(courseLevelsArrayResult).status(200)
     })
     .catch(error => {
       return res.status(400).json({ error: error, message: error.message })
