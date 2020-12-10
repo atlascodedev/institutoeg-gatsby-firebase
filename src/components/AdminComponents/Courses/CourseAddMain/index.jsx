@@ -4,7 +4,7 @@ import AtlasDatagrid from "../../../UtilityComponents/AtlasDatagrid"
 import CourseAddMainCard from "./CourseAddMainCard"
 import CourseMainUpdateCard from "./CourseAddMainUpdateCard"
 
-function CourseAddMain({ courseAreas }) {
+function CourseAddMain({ courseAreas, createCourse }) {
   const [data, setData] = React.useState([])
   const [additionalData, setAdditionalData] = React.useState({})
 
@@ -57,6 +57,7 @@ function CourseAddMain({ courseAreas }) {
         deleteCallback={handleDeleteCallback}
         createCallback={handleCreateCallback}
         updateCallback={handleUpdateCallback}
+        createCourse={createCourse}
         additionalData={courseAreas}
       ></AtlasDatagrid>
     </div>

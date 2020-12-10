@@ -1,14 +1,18 @@
 import { nanoid } from "nanoid"
 
 class FirestoreMethods {
-  constructor(firestoreInstance, firestoreNamespace) {
+  constructor(firestoreInstance, firestoreNamespace, storageInstance) {
     this.firestoreNamespace = firestoreNamespace
     this.db = firestoreInstance
+    this.storage = storageInstance
+
     this.courseAreaRef = this.db.collection("courseAreas")
     this.courseLevelRef = this.db.collection("courseLevels")
     this.courseRef = this.db.collection("courses")
     this.studentRef = this.db.collection("students")
     this.salesRef = this.db.collection("sales")
+
+    console.log(this.storage)
   }
   getCourseAreas = (callback = null) => {
     let unsub = this.courseAreaRef.onSnapshot(result => {
@@ -383,6 +387,63 @@ class FirestoreMethods {
     })
 
     return unsub
+  }
+
+  createCourse = (
+    courseName,
+    courseSlug,
+    courseArea,
+    courseLevel,
+    courseSyllabus,
+    courseEmec,
+    courseImage,
+    courseDuration,
+    courseDescription
+  ) => {
+    const generatedUID = nanoid()
+
+    this.storage
+      .ref()
+      .child(
+        `images/emec/${courseSlug}-${courseArea}-${courseLevel}-${generatedUID}-emec.png`
+      )
+      .putString(courseEmec, "data_url")
+      .then(imageResultEmec => {
+        imageResultEmec.ref
+          .getDownloadURL()
+          .then(emecDownloadUrl => {
+            this.storage
+              .ref()
+              .child(
+                `images/courses/${courseSlug}-${courseArea}-${courseLevel}-${generatedUID}.png`
+              )
+              .putString(courseImage, "data_url")
+              .then(courseImageRef => {
+                courseImageRef.ref
+                  .getDownloadURL()
+                  .then(courseImageDownloadUrl => {
+                    this.courseRef
+                      .add({
+                        uid: generatedUID,
+                        courseName: courseName,
+                        courseArea: courseArea,
+                        courseSlug: courseSlug,
+                        courseLevel: courseLevel,
+                        courseDuration: courseDuration,
+                        courseDescription: courseDescription,
+                        courseImage: courseImageDownloadUrl,
+                        courseEmec: emecDownloadUrl,
+                        courseSyllabus: courseSyllabus,
+                      })
+                      .catch(error => console.log(error))
+                  })
+                  .catch(error => console.log(error))
+              })
+              .catch(error => console.log(error))
+          })
+          .catch(error => console.log(error))
+      })
+      .catch(error => console.log(error))
   }
 }
 

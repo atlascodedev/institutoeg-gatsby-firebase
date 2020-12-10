@@ -54,6 +54,7 @@ const AtlasDatagrid = ({
   updateCallback,
   createCallback,
   additionalData,
+  createCourse,
 }) => {
   const tableRef = React.useRef(null)
   const [errorAlert, setErrorAlert] = React.useState(false)
@@ -86,6 +87,7 @@ const AtlasDatagrid = ({
       ) : null}
 
       <AddDialog
+        createCourse={createCourse}
         open={addDialogState}
         handleClose={() => setAddDialogState(false)}
         callback={createCallback}

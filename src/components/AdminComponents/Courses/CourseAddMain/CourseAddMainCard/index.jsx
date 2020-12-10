@@ -16,11 +16,19 @@ import React from "react"
 import * as Yup from "yup"
 import Dropzone from "../../../../UtilityComponents/Dropzone"
 import CourseAddSyllabus from "./CourseAddSyllabus"
+import { converToSlug } from "../../../../../util/index"
 
-function CourseAddMainCard({ open, handleClose, callback, additionalData }) {
+function CourseAddMainCard({
+  open,
+  handleClose,
+  callback,
+  additionalData,
+  createCourse,
+}) {
   let schema = Yup.object().shape({
     courseName: Yup.string().required(),
     courseDuration: Yup.string().required(),
+    courseDescription: Yup.string().required(),
   })
 
   console.log(additionalData)
@@ -31,9 +39,13 @@ function CourseAddMainCard({ open, handleClose, callback, additionalData }) {
   const [courseImage, setCourseImage] = React.useState("")
   const [courseEmec, setCourseEmec] = React.useState("")
   const [courseSyllabus, setCourseSyllabus] = React.useState([])
+  const [courseDescription, setCourseDescription] = React.useState("")
 
   const [courseNameError, setCourseNameError] = React.useState(false)
   const [courseDurationError, setCourseDurationError] = React.useState(false)
+  const [courseDescriptionError, setCourseDescriptionError] = React.useState(
+    false
+  )
 
   const validateCourseName = () => {
     Yup.reach(schema, "courseName")
@@ -55,6 +67,34 @@ function CourseAddMainCard({ open, handleClose, callback, additionalData }) {
       .catch(error => {
         setCourseDurationError(true)
       })
+  }
+
+  const validateCourseDescription = () => {
+    Yup.reach(schema, "courseDescription")
+      .validate(courseDescription)
+      .then(() => {
+        setCourseDescriptionError(false)
+      })
+      .catch(error => {
+        setCourseDescriptionError(true)
+      })
+  }
+
+  const createCourseSubmit = () => {
+    const courseSlug = converToSlug(courseName)
+
+    createCourse(
+      courseName,
+      courseSlug,
+      courseAreaLevel.courseAreaName,
+      courseAreaLevel.courseAreaLevel,
+      courseSyllabus,
+      courseEmec,
+      courseImage,
+      courseDuration,
+      courseDescription
+    )
+    // console.log(courseSlug)
   }
 
   return (
@@ -89,6 +129,24 @@ function CourseAddMainCard({ open, handleClose, callback, additionalData }) {
                   : ""
               }
             ></TextField>
+          </Box>
+
+          <Box py={1}>
+            <TextField
+              multiline
+              rows={3}
+              variant="outlined"
+              fullWidth
+              onChange={e => setCourseDescription(e.target.value)}
+              onBlur={validateCourseDescription}
+              error={courseDescriptionError}
+              label="Descrição do curso"
+              helperText={
+                courseDescriptionError
+                  ? "Digite uma descrição para o curso"
+                  : ""
+              }
+            />
           </Box>
 
           <Box py={1}>
@@ -137,7 +195,11 @@ function CourseAddMainCard({ open, handleClose, callback, additionalData }) {
             Cancelar
           </Button>
 
-          <Button variant="contained" color="primary">
+          <Button
+            onClick={createCourseSubmit}
+            variant="contained"
+            color="primary"
+          >
             Criar curso
           </Button>
         </DialogActions>

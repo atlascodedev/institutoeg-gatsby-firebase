@@ -7,11 +7,13 @@ class Firebase {
     app.initializeApp(config)
 
     this.firestoreNamespace = app.firestore
+    this.storage = app.storage()
     this.auth = app.auth()
     this.db = app.firestore()
     this.firestoreMethods = new FirestoreMethods(
       this.db,
-      this.firestoreNamespace
+      this.firestoreNamespace,
+      this.storage
     )
     this.firebaseAuth = new FirebaseAuthMethods(this.auth)
 

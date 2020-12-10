@@ -40,6 +40,7 @@ class FirebaseAuth {
 
 class FirestoreMethods {
   constructor() {
+    this.storage = app.storage()
     this.db = db
     this.courseAreaRef = db.collection("courseAreas")
     this.courseLevelRef = db.collection("courseLevels")
@@ -324,5 +325,62 @@ class FirestoreMethods {
           "There was an error while trying to create a new course level"
         )
       })
+  }
+
+  createCourse = (
+    courseName,
+    courseSlug,
+    courseArea,
+    courseLevel,
+    courseSyllabus,
+    courseEmec,
+    courseImage,
+    courseDuration,
+    courseDescription
+  ) => {
+    const generatedUID = nanoid()
+
+    this.storage
+      .ref()
+      .child(
+        `images/emec/${courseSlug}-${courseArea}-${courseLevel}-${generatedUID}-emec.png`
+      )
+      .putString(courseEmec, "data_url")
+      .then(imageResultEmec => {
+        imageResultEmec.ref
+          .getDownloadURL()
+          .then(emecDownloadUrl => {
+            this.storage
+              .ref()
+              .child(
+                `images/courses/${courseSlug}-${courseArea}-${courseLevel}-${generatedUID}.png`
+              )
+              .putString(courseImage, "data_url")
+              .then(courseImageRef => {
+                courseImageRef.ref
+                  .getDownloadURL()
+                  .then(courseImageDownloadUrl => {
+                    this.courseRef
+                      .add({
+                        uid: generatedUID,
+                        courseName: courseName,
+                        courseArea: courseArea,
+                        courseSlug: courseSlug,
+                        courseLevel: courseLevel,
+                        courseDuration: courseDuration,
+                        courseDescription: courseDescription,
+                        courseImage: courseImageDownloadUrl,
+                        courseEmec: emecDownloadUrl,
+                        courseSyllabus: courseSyllabus,
+                      })
+                      .catch(error => console.log(error))
+                  })
+                  .catch(error => console.log(error))
+              })
+              .catch(error => console.log(error))
+          })
+          .catch(error => console.log(error))
+      })
+      .catch(error => console.log(error))
   }
 }

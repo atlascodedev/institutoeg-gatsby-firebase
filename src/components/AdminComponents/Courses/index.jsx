@@ -38,6 +38,7 @@ function Courses(props) {
         createCourseArea={firestoreMethods.createCourseArea}
         deleteCourseArea={firestoreMethods.deleteCourseArea}
         courseAreas={courseAreas}
+        createCourse={firestoreMethods.createCourse}
       />
     </AdminLayout>
   )
