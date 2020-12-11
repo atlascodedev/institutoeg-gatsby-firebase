@@ -48,7 +48,7 @@
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean && gatsby develop",
-    "dev": "cross-env ENABLE_GATSBY_REFRESH_ENDPOINT=true GATSBY_GRAPHQL_IDE=playground gatsby develop",
+    "dev": "cross-env ENABLE_GATSBY_REFRESH_ENDPOINT=true gatsby develop",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
     "emulators": "firebase emulators:start --export-on-exit=./emulator-data --import=./emulator-data"
   },

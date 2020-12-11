@@ -11,7 +11,7 @@ export default function BlogPost({ pageContext }) {
     <div>
 
         blog
-      {/* <h1>{pageContext.courseName}</h1>
+      <h1>{pageContext.courseName}</h1>
 
       <h2>{pageContext.courseArea + " - " + pageContext.courseLevel}</h2>
 
@@ -23,7 +23,7 @@ export default function BlogPost({ pageContext }) {
         <h3 key={index}>{item}</h3>
       ))}
 
-      <h3>{pageContext.courseDuration} horas de duração</h3> */}
+      <h3>{pageContext.courseDuration} horas de duração</h3>
     </div>
   )
 }
