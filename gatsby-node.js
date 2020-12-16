@@ -2,18 +2,21 @@ const axios = require("axios")
 const path = require("path")
 const { converToSlug } = require("./util_node/index")
 
+if (process.env.NODE_ENV !== "production") {
+  axios.default.defaults.baseURL =
+    "http://localhost:5001/gnosis-webapp/us-central1/api"
+} else {
+  axios.default.defaults.baseURL = null
+}
+
 exports.sourceNodes = async ({
   actions,
   createNodeId,
   createContentDigest,
 }) => {
-  const allCourses = await axios.get(
-    "http://localhost:5001/gnosis-webapp/us-central1/api/courses"
-  )
+  const allCourses = await axios.get("/courses")
 
-  const allCourseAreas = await axios.get(
-    "http://localhost:5001/gnosis-webapp/us-central1/api/courseAreas"
-  )
+  const allCourseAreas = await axios.get("/courseAreas")
 
   allCourseAreas.data.forEach(courseArea => {
     const node = {
@@ -65,7 +68,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
     createPage({
       path: `${courseLevelToSlug}/${courseAreaToSlug}/${course.courseSlug}`,
-      component: path.resolve(`./src/templates/blog-post.js`),
+      component: path.resolve(`./src/templates/coursePage.js`),
       context: {
         courseName: course.courseName,
         courseDescription: course.courseDescription,

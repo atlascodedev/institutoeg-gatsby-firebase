@@ -11,6 +11,7 @@
     "axios": "^0.21.0",
     "cross-env": "^7.0.3",
     "firebase": "^8.1.1",
+    "fontsource-graduate": "^3.1.5",
     "formik": "^2.2.5",
     "gatsby": "^2.26.1",
     "gatsby-image": "^2.5.0",
