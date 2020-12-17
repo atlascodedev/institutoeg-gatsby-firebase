@@ -1,20 +1,12 @@
 import React from "react"
+import LandingHero from "../components/AppComponents/LandingHero"
+import AppLayout from "../layouts/AppLayout"
 
 function IndexPage() {
   return (
-    <div
-      style={{
-        width: "100%",
-        display: "flex",
-        justifyContent: "center",
-        height: "100vh",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
-      CLEAN POGU
-      {/* <button onClick={auth.logoutUser}>Logout user</button> */}
-    </div>
+    <AppLayout>
+      <LandingHero></LandingHero>
+    </AppLayout>
   )
 }
 

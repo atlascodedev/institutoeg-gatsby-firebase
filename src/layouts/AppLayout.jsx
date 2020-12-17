@@ -1,11 +1,11 @@
-import { AppBar } from "@material-ui/core"
 import React from "react"
 import Footer from "../components/AppComponents/Footer"
+import Navbar from "../components/AppComponents/Navbar"
 
 function AppLayout({ children }) {
   return (
     <React.Fragment>
-      <AppBar />
+      <Navbar />
 
       <main>{children}</main>
 
