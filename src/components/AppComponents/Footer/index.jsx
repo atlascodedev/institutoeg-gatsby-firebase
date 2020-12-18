@@ -200,9 +200,8 @@ function Footer(props) {
         <Grid spacing={2} container justify="center">
           <Grid item container justify="center">
             {socialLinks.map((item, index) => (
-              <a href={item.link}>
+              <a key={index} href={item.link}>
                 <SvgIcon
-                  key={index}
                   component={item.icon}
                   className={classes.socialIcons}
                 ></SvgIcon>

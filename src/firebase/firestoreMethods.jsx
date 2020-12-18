@@ -391,6 +391,7 @@ class FirestoreMethods {
 
   createCourse = (
     courseName,
+    courseFullSlug,
     courseSlug,
     courseArea,
     courseLevel,
@@ -427,6 +428,7 @@ class FirestoreMethods {
                         uid: generatedUID,
                         courseName: courseName,
                         courseArea: courseArea,
+                        courseFullSlug: courseFullSlug,
                         courseSlug: courseSlug,
                         courseLevel: courseLevel,
                         courseDuration: courseDuration,

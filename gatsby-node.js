@@ -1,4 +1,5 @@
 const axios = require("axios")
+const { nanoid } = require("nanoid")
 const path = require("path")
 const { converToSlug } = require("./util_node/index")
 
@@ -14,16 +15,68 @@ exports.sourceNodes = async ({
   createNodeId,
   createContentDigest,
 }) => {
-  const allCourses = await axios.get("/courses")
+  let allCourses = await axios.get("/courses")
 
   const allCourseAreas = await axios.get("/courseAreas")
+
+  console.log(allCourses.data, "*******************************************")
+
+  const courseSlugArray = []
+  const courseDummyData = {
+    data: [
+      {
+        uid: "dummyUid" + nanoid(),
+        courseName: "dummyCourse",
+        courseDescription: "dummyDescription",
+        courseLevel: "dummyLevel",
+        courseArea: "dummyArea",
+        courseDuration: "dummyDuration",
+        courseImage: "dummyImagePath",
+        courseEmec: "dummyEmecImagePath",
+        courseSyllabus: "dummySyllabusArray",
+        courseSlug: "dummySlug",
+        courseFullSlug: "dummySlugFull",
+      },
+    ],
+  }
+
+  if (allCourses.data.length <= 0) {
+    allCourses = courseDummyData
+  }
+
+  console.log(allCourses)
+
+  allCourses.data.forEach(course => {
+    const courseAreaToSlug = converToSlug(course.courseArea)
+    const courseLevelToSlug = converToSlug(course.courseLevel)
+
+    courseSlugArray.push(
+      `${courseLevelToSlug}/${courseAreaToSlug}/${course.courseSlug}`
+    )
+  })
+
+  courseSlugArray.forEach(courseSlug => {
+    const node = {
+      courseSlug: courseSlug,
+      type: `courseSlug`,
+      id: createNodeId(`courseSlug${nanoid()}`),
+      internal: {
+        type: "courseSlug",
+        contentDigest: createContentDigest(courseSlug),
+      },
+    }
+
+    actions.createNode(node)
+  })
+
+  console.log(courseSlugArray)
 
   allCourseAreas.data.forEach(courseArea => {
     const node = {
       courseAreaName: courseArea.courseAreaName,
       courseAreaLevel: courseArea.courseAreaLevel,
       type: `${courseArea.courseAreaName}${courseArea.uid}`,
-      id: createNodeId(`CourseArea-${courseArea.courseAreaName}`),
+      id: createNodeId(`courseArea-${courseArea.uid}`),
       internal: {
         type: "courseArea",
         contentDigest: createContentDigest(courseArea),
@@ -41,9 +94,11 @@ exports.sourceNodes = async ({
       courseDuration: course.courseDuration,
       courseImage: course.courseImage,
       courseEmec: course.courseEmec,
+      courseSlug: course.courseSlug,
+      courseFullSlug: course.courseFullSlug,
       courseSyllabus: course.courseSyllabus,
       type: `${course.courseName}${course.uid}`,
-      id: createNodeId(`Course-${course.courseName}`),
+      id: createNodeId(`Course-${course.uid}`),
       internal: {
         type: "course",
         contentDigest: createContentDigest(course),
@@ -59,8 +114,6 @@ exports.createPages = async ({ graphql, actions }) => {
   const allCourses = await axios.get(
     "http://localhost:5001/gnosis-webapp/us-central1/api/courses"
   )
-
-  console.log(allCourses)
 
   allCourses.data.forEach(course => {
     const courseAreaToSlug = converToSlug(course.courseArea)

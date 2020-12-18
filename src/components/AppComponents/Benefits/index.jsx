@@ -15,6 +15,15 @@ const useStyles = makeStyles(theme => ({
   root: {
     marginTop: "2.5em",
     marginBottom: "2.5em",
+    fontFamily: theme.typography.fontFamily,
+  },
+
+  benefitsCall: {
+    color: theme.palette.primary.main,
+    paddingBottom: "2em",
+    display: "flex",
+    justifyContent: "center",
+    textAlign: "center",
   },
 }))
 
@@ -24,6 +33,10 @@ function Benefits(props) {
   return (
     <div className={classes.root}>
       <Container>
+        <div className={classes.benefitsCall}>
+          <h2>Qualifique-se no Instituto Gnosis</h2>
+        </div>
+
         <Grid spacing={3} container justify="center">
           <Grid item container justify="center" xs={6} md={4} lg={3}>
             <BenefitsCard

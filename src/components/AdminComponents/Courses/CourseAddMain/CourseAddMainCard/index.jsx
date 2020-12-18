@@ -83,8 +83,17 @@ function CourseAddMainCard({
   const createCourseSubmit = () => {
     const courseSlug = converToSlug(courseName)
 
+    const courseFullSlug = `${converToSlug(
+      courseAreaLevel.courseAreaLevel
+    )}/${converToSlug(courseAreaLevel.courseAreaName)}/${converToSlug(
+      courseName
+    )}`
+
+    console.log(courseFullSlug)
+
     createCourse(
       courseName,
+      courseFullSlug,
       courseSlug,
       courseAreaLevel.courseAreaName,
       courseAreaLevel.courseAreaLevel,
