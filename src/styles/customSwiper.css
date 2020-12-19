@@ -1,0 +1,16 @@
+.swiper-pagination {
+  position: relative;
+  top: 95%;
+}
+
+.swiper-container {
+  height: 580px;
+  margin-top: 3em;
+  margin-bottom: 3em;
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}

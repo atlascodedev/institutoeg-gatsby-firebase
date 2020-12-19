@@ -79,7 +79,11 @@ function CourseMenu({ courses }) {
     "test6",
   ]
 
-  console.log(courses)
+  const courseArray = courses.map((edge, index) => {
+    return edge.node
+  })
+
+  console.log(courseArray)
 
   const [open, setOpen] = React.useState(false)
 
@@ -95,7 +99,7 @@ function CourseMenu({ courses }) {
           style={{ cursor: "pointer" }}
         >
           <Box
-            my={2}
+            my={2} mx={2}
             alignItems="center"
             display="flex"
             justifyContent="center"
@@ -104,7 +108,7 @@ function CourseMenu({ courses }) {
               className={classes.courseMenuArrow}
               component={ArrowUpwardRounded}
             />
-            <Box color={"#9e9d9d"} pl={2} display="flex" alignItems="center">
+            <Box fontSize={'0.75em'} color={"#9e9d9d"} pl={2} pr={2} display="flex" alignItems="center">
               <div>Selecione o curso ou passe as opções abaixo</div>
             </Box>
           </Box>
@@ -121,19 +125,19 @@ function CourseMenu({ courses }) {
           container
           justify="center"
         >
-          {testArray.map((test, indexTest) => (
+          {courseArray.map((course, indexCourse) => (
             <Grid
               xs={12}
               md={4}
-              key={indexTest}
+              key={indexCourse}
               item
               container
               justify="center"
             >
               <Fade in={open} timeout={{ enter: 1000, exit: 500 }}>
                 <div className={classes.courseMenuItem}>
-                  <Link className={classes.courseMenuItem} to={"/"}>
-                    {test}
+                  <Link className={classes.courseMenuItem} to={course.courseFullSlug}>
+                    {course.courseName}
                   </Link>
                 </div>
               </Fade>

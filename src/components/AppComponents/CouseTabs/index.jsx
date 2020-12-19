@@ -188,6 +188,7 @@ export default function CourseTabs({ syllabus, duration, emec }) {
         <SyllabusContainer>
           <div className={classes.emecPicture}>
             <img
+              style={{ width: "100%" }}
               src={emec}
               alt="Printscreen do certificado do MEC para este curso"
             />

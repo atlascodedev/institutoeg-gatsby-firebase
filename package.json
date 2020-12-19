@@ -33,6 +33,7 @@
     "react-helmet": "^6.1.0",
     "react-input-mask": "^2.0.4",
     "styled-components": "^5.2.1",
+    "swiper": "^6.4.5",
     "yup": "^0.32.1"
   },
   "devDependencies": {
