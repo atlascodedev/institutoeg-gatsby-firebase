@@ -5,6 +5,7 @@ import AppLayout from "../layouts/AppLayout"
 import _ from "lodash"
 import LandingCourseSection from "../components/AppComponents/LandingCourseSection"
 import { graphql, useStaticQuery } from "gatsby"
+import ContactFormMain from "../components/AppComponents/ContactFormMain"
 
 function IndexPage(props) {
   return (
@@ -12,6 +13,7 @@ function IndexPage(props) {
       <LandingHero />
       <Benefits />
       <LandingCourseSection />
+      <ContactFormMain />
     </AppLayout>
   )
 }

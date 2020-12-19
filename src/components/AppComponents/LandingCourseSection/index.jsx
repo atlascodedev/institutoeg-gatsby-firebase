@@ -106,7 +106,6 @@ function LandingCourseSection(props) {
           <div
             style={{
               borderTop: "1px solid #e2e2e2",
-              borderBottom: "1px solid #e2e2e2",
             }}
           >
             <h2 className={classes.courseLevelTitle}>
@@ -122,7 +121,6 @@ function LandingCourseSection(props) {
           <div
             style={{
               borderTop: "1px solid #e2e2e2",
-              borderBottom: "1px solid #e2e2e2",
             }}
           >
             <h2 className={classes.courseLevelTitle}>
@@ -138,7 +136,6 @@ function LandingCourseSection(props) {
           <div
             style={{
               borderTop: "1px solid #e2e2e2",
-              borderBottom: "1px solid #e2e2e2",
             }}
           >
             <h2 className={classes.courseLevelTitle}>
@@ -154,7 +151,6 @@ function LandingCourseSection(props) {
           <div
             style={{
               borderTop: "1px solid #e2e2e2",
-              borderBottom: "1px solid #e2e2e2",
             }}
           >
             <h2 className={classes.courseLevelTitle}>
