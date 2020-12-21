@@ -91,7 +91,7 @@ function CourseFormMain(props) {
                 </Grid>
 
                 <Grid xs={12} item container justify="center">
-                  <Box width={"30%"}>
+                  <Box width={{ xs: "100%", md: "40%" }}>
                     <FormikField
                       name="contactMessage"
                       margin="dense"

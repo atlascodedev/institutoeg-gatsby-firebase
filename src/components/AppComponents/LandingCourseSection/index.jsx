@@ -71,8 +71,6 @@ function LandingCourseSection(props) {
     return edge.node.courseLevel
   })
 
-  console.log(allCourseLevels)
-
   const coursePos = courseData.allCourse.edges.filter((edge, index) => {
     if (edge.node.courseLevel == "Pós-graduação") {
       return edge.node

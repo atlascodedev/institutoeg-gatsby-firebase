@@ -11,8 +11,6 @@ class FirestoreMethods {
     this.courseRef = this.db.collection("courses")
     this.studentRef = this.db.collection("students")
     this.salesRef = this.db.collection("sales")
-
-    console.log(this.storage)
   }
   getCourseAreas = (callback = null) => {
     let unsub = this.courseAreaRef.onSnapshot(result => {

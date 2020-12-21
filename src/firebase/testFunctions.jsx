@@ -13,6 +13,11 @@ class FirebaseAuth {
   constructor() {
     this.auth = firebase.auth()
     this.db = firebase.firestore()
+
+
+    this.auth.onAuthStateChanged(user => {
+      
+    })
   }
 
   logoutUser = () => {
@@ -47,6 +52,7 @@ class FirestoreMethods {
     this.courseRef = db.collection("courses")
     this.studentRef = this.db.collection("students")
     this.salesRef = this.db.collection("sales")
+    
   }
 
   getCourseAreas = (callback = null) => {

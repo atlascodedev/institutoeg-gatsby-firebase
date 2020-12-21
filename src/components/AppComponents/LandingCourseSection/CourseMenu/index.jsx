@@ -23,6 +23,7 @@ const CourseMenuContainer = styled.div`
   border-radius: 5px;
   margin-top: 1em;
   overflow: hidden;
+  padding: ${props => (props.open ? "2em" : "0px")};
 
   margin-bottom: 1em;
   @media (min-width: 768px) {
@@ -83,8 +84,6 @@ function CourseMenu({ courses }) {
     return edge.node
   })
 
-  console.log(courseArray)
-
   const [open, setOpen] = React.useState(false)
 
   const styleProps = { open: open }
@@ -99,7 +98,8 @@ function CourseMenu({ courses }) {
           style={{ cursor: "pointer" }}
         >
           <Box
-            my={2} mx={2}
+            my={2}
+            mx={2}
             alignItems="center"
             display="flex"
             justifyContent="center"
@@ -108,7 +108,14 @@ function CourseMenu({ courses }) {
               className={classes.courseMenuArrow}
               component={ArrowUpwardRounded}
             />
-            <Box fontSize={'0.75em'} color={"#9e9d9d"} pl={2} pr={2} display="flex" alignItems="center">
+            <Box
+              fontSize={"0.75em"}
+              color={"#9e9d9d"}
+              pl={2}
+              pr={2}
+              display="flex"
+              alignItems="center"
+            >
               <div>Selecione o curso ou passe as opções abaixo</div>
             </Box>
           </Box>
@@ -136,7 +143,10 @@ function CourseMenu({ courses }) {
             >
               <Fade in={open} timeout={{ enter: 1000, exit: 500 }}>
                 <div className={classes.courseMenuItem}>
-                  <Link className={classes.courseMenuItem} to={course.courseFullSlug}>
+                  <Link
+                    className={classes.courseMenuItem}
+                    to={course.courseFullSlug}
+                  >
                     {course.courseName}
                   </Link>
                 </div>

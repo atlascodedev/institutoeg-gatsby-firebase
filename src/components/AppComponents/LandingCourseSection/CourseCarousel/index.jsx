@@ -15,14 +15,13 @@ import "swiper/components/pagination/pagination.min.css"
 import "swiper/components/scrollbar/scrollbar.min.css"
 import "../../../../styles/customSwiper.css"
 import CourseCard from "../CourseCard"
+import { nanoid } from "nanoid"
 
 // install Swiper components
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay])
 
 const CourseCarousel = ({ courses }) => {
   const swiperPagination = React.useRef(null)
-
-  console.log(courses)
 
   return (
     <div>
@@ -42,14 +41,13 @@ const CourseCarousel = ({ courses }) => {
             navigation: true,
           },
         }}
-        pagination={{ clickable: true }}
+        pagination={courses.length >= 3 ? { clickable: true } : false}
         onSlideChange={() => null}
         // onSwiper={swiper => console.log(swiper)}
       >
         {courses.map((edge, index) => {
-          console.log(edge.node)
           return (
-            <SwiperSlide>
+            <SwiperSlide key={nanoid()}>
               {({ isActive }) => (
                 <CourseCard
                   courseDescription={edge.node.courseDescription}

@@ -11,44 +11,44 @@ import PrivateRoute from "../components/AdminComponents/PrivateRoute"
 import { FirebaseAuthContext } from "../authentication/context"
 
 function Admin(props) {
-  const isAuth = React.useContext(FirebaseAuthContext)
+  const { auth } = React.useContext(FirebaseAuthContext)
 
   // console.log(isAuth, 'aqui aqui aqui')
 
   return (
     <Router>
       <PrivateRoute
-        isAuth={isAuth}
+        isAuth={auth}
         component={Login}
         path={"/admin/login"}
       ></PrivateRoute>
 
       <PrivateRoute
-        isAuth={isAuth}
+        isAuth={auth}
         component={Dashboard}
         path={"/admin/dashboard"}
       ></PrivateRoute>
 
       <PrivateRoute
-        isAuth={isAuth}
+        isAuth={auth}
         component={Students}
         path={"/admin/alunos"}
       ></PrivateRoute>
 
       <PrivateRoute
-        isAuth={isAuth}
+        isAuth={auth}
         component={Courses}
         path={"/admin/cursos"}
       ></PrivateRoute>
 
       <PrivateRoute
-        isAuth={isAuth}
+        isAuth={auth}
         component={Sales}
         path={"/admin/vendas"}
       ></PrivateRoute>
 
       <PrivateRoute
-        isAuth={isAuth}
+        isAuth={auth}
         component={Messages}
         path={"/admin/mensagens"}
       ></PrivateRoute>

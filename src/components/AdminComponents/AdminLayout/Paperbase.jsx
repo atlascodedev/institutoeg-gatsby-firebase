@@ -21,7 +21,7 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
+      <Link color="inherit" href="https://atlascode.dev">
         {"AtlasCode Dev - Desenvolvimento web & estratégia"}
       </Link>{" "}
       {new Date().getFullYear()}
@@ -193,7 +193,7 @@ const categories = [
         icon: <PermMediaOutlinedIcon />,
         path: "/admin/vendas",
       },
-      { id: "Mensagens", icon: <PublicIcon />, path: "/admin/mensagens" },
+      // { id: "Mensagens", icon: <PublicIcon />, path: "/admin/mensagens" },
     ],
   },
 ]

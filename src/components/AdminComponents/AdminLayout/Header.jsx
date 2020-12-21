@@ -17,6 +17,8 @@ import Tooltip from "@material-ui/core/Tooltip"
 import Typography from "@material-ui/core/Typography"
 import { withStyles } from "@material-ui/core/styles"
 import { useLocation } from "@reach/router"
+import AccountCard from "../AccountCard"
+import { FirebaseAuthContext } from "../../../authentication/context"
 
 const lightColor = "rgba(255, 255, 255, 0.7)"
 
@@ -53,6 +55,18 @@ function Header(props) {
   const firstLetter = pathNameArray[0]
   const newPathName = pathName.replace(firstLetter, firstLetter.toUpperCase())
 
+  const [accountCard, setAccountCard] = React.useState(false)
+
+  const handleAccountCardOpen = () => {
+    setAccountCard(true)
+  }
+
+  const handleAccountCardClose = () => {
+    setAccountCard(false)
+  }
+
+  const { firebaseAuth } = React.useContext(FirebaseAuthContext)
+
   return (
     <React.Fragment>
       <AppBar color="primary" position="sticky" elevation={0}>
@@ -77,15 +91,24 @@ function Header(props) {
               </Typography>{" "}
             </Grid>
 
-            <Grid item>
+            {/* <Grid item>
               <Tooltip title="Alerts • No alerts">
                 <IconButton color="inherit">
                   <NotificationsIcon />
                 </IconButton>
               </Tooltip>
-            </Grid>
+            </Grid> */}
             <Grid item>
-              <IconButton color="inherit" className={classes.iconButtonAvatar}>
+              <AccountCard
+                callback={firebaseAuth.logoutUser}
+                handleClose={handleAccountCardClose}
+                open={accountCard}
+              />
+              <IconButton
+                onClick={handleAccountCardOpen}
+                color="inherit"
+                className={classes.iconButtonAvatar}
+              >
                 <Avatar
                   className={classes.iconButtonAvatarPhoto}
                   src="https://envato-shoebox-0.imgix.net/fcc2/6596-af87-4acc-8354-0033bb6f463a/2014_088_001_0016.jpg?auto=compress%2Cformat&fit=max&mark=https%3A%2F%2Felements-assets.envato.com%2Fstatic%2Fwatermark2.png&markalign=center%2Cmiddle&markalpha=18&w=1600&s=8f867e9fd278d4721f49ae3ef30503c0"

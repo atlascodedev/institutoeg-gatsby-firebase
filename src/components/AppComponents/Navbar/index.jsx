@@ -65,8 +65,6 @@ export default function Navbar({ data, ...props }) {
   const location = useLocation()
   const logoGnosis = GnosisLogo
 
-  console.log(data)
-
   const isHome = location.pathname == "/"
   const [atlasDrawerState, setAtlasDrawerState] = React.useState(false)
 

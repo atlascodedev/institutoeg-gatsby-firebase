@@ -10,6 +10,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon"
 import ListItemText from "@material-ui/core/ListItemText"
 import HomeIcon from "@material-ui/icons/Home"
 import { useLocation, Link } from "@reach/router"
+import AccountCard from "../AccountCard"
 
 const styles = theme => ({
   categoryHeader: {
@@ -65,13 +66,14 @@ function Navigator(props) {
 
   return (
     <Drawer variant="permanent" {...other}>
+
       <List disablePadding>
         <ListItem
           className={clsx(classes.firebase, classes.item, classes.itemCategory)}
         >
           Instituto Gnosis
         </ListItem>
-        <Link to={"/admin/dashboard"} style={{ textDecoration: "none" }}>
+        {/* <Link to={"/admin/dashboard"} style={{ textDecoration: "none" }}>
           <ListItem
             style={{ cursor: "pointer" }}
             className={clsx(classes.item, classes.itemCategory)}
@@ -94,7 +96,7 @@ function Navigator(props) {
               Visão geral
             </ListItemText>
           </ListItem>
-        </Link>
+        </Link> */}
         {categories.map(({ id, children }) => (
           <React.Fragment key={id}>
             <ListItem className={classes.categoryHeader}>
