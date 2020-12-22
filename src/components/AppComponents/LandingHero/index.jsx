@@ -65,8 +65,18 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-function LandingHero(props) {
+function LandingHero({ cta }) {
   const classes = useStyles()
+
+  const [ctaRef, setCtaRef] = React.useState(null)
+
+  React.useEffect(() => {
+    setCtaRef(cta)
+  }, [])
+
+  const handleCta = () => {
+    ctaRef.current.scrollIntoView({ behavior: "smooth" })
+  }
 
   return (
     <div className={classes.root}>
@@ -87,6 +97,7 @@ function LandingHero(props) {
                 medicina
               </h5>
               <Button
+                onClick={handleCta}
                 className={classes.ctaButton}
                 color="primary"
                 variant="contained"

@@ -1,4 +1,4 @@
-import { Button } from "@material-ui/core"
+import { Button, Typography } from "@material-ui/core"
 import { Link } from "gatsby"
 import React from "react"
 import styled from "styled-components"
@@ -9,12 +9,13 @@ const CourseCardPaper = styled.div`
   padding-bottom: 1em;
   border-radius: 7px;
   height: auto;
+  overflow: hidden;
   width: 325px;
   filter: ${props => (props.active ? "opacity(1)" : "opacity(0.3)")};
   transform: ${props => (props.active ? "scale(1)" : "scale(0.5)")};
 
   @media (min-width: 768px) {
-    width: 345px;
+    width: 280px;
   }
 `
 
@@ -63,7 +64,9 @@ function CourseCard({
         {courseTitle ? courseTitle : "Placeholder title"}
       </CourseCardTitle>
       <CourseCardDescripton>
-        {courseDescription ? courseDescription : "Lore lorem ipsum text"}
+        <Typography noWrap={true}>
+          {courseDescription ? courseDescription : "Lore lorem ipsum text"}
+        </Typography>
       </CourseCardDescripton>
 
       <Button variant="contained" color="primary">

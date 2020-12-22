@@ -37,6 +37,7 @@ const useStyles = makeStyles(theme => ({
 
   appBarButton: {
     color: "#FFF",
+    fontSize: "0.8em",
     transition: "all 0.3s ease",
     "&:hover": {
       transform: "translateY(-2.5px)",
@@ -55,7 +56,7 @@ const useStyles = makeStyles(theme => ({
     width: "5em",
     // marginLeft: "3em",
     [theme.breakpoints.up("md")]: {
-      width: "8em",
+      width: "5em",
     },
   },
 }))
@@ -80,9 +81,9 @@ export default function Navbar({ data, refs, ...props }) {
     if (refs) {
       for (let index = 0; index < refs.length; index++) {
         console.log(refs[index])
-  
+
         menu[index].reference = refs[index].current
-  
+
         menu[index].scrollFunction = () =>
           refs[index].current.scrollIntoView({
             behavior: "smooth",

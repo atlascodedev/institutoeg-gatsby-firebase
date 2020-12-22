@@ -111,7 +111,7 @@ function Header(props) {
               >
                 <Avatar
                   className={classes.iconButtonAvatarPhoto}
-                  src="https://envato-shoebox-0.imgix.net/fcc2/6596-af87-4acc-8354-0033bb6f463a/2014_088_001_0016.jpg?auto=compress%2Cformat&fit=max&mark=https%3A%2F%2Felements-assets.envato.com%2Fstatic%2Fwatermark2.png&markalign=center%2Cmiddle&markalpha=18&w=1600&s=8f867e9fd278d4721f49ae3ef30503c0"
+                  // src="https://envato-shoebox-0.imgix.net/fcc2/6596-af87-4acc-8354-0033bb6f463a/2014_088_001_0016.jpg?auto=compress%2Cformat&fit=max&mark=https%3A%2F%2Felements-assets.envato.com%2Fstatic%2Fwatermark2.png&markalign=center%2Cmiddle&markalpha=18&w=1600&s=8f867e9fd278d4721f49ae3ef30503c0"
                   alt="My Avatar"
                 />
               </IconButton>

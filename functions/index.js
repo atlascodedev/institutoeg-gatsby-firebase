@@ -91,11 +91,7 @@ app.post("/build", cors(), (req, res) => {
     message: "",
   }
 
-  if (!req.body.token) {
-    return res
-      .status(401)
-      .json({ error: "Request requires an authentication token" })
-  }
+  const actionToken = functions.config().githubactions.key
 
   if (!req.body.event_type) {
     eventType = "start-example"
@@ -111,7 +107,7 @@ app.post("/build", cors(), (req, res) => {
     { event_type: eventType },
     {
       headers: {
-        Authorization: `Bearer ${req.body.token}`,
+        Authorization: `Bearer ${actionToken}`,
         "Content-Type": "application/json",
         Accept: "application/vnd.github.v3+json",
       },

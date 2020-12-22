@@ -20,7 +20,7 @@ function IndexPage(props) {
   return (
     <AppLayout refs={pageRefs}>
       <div ref={landingRef}>
-        <LandingHero />
+        <LandingHero cta={courseRef} />
       </div>
       <div ref={benefitsRef}>
         <Benefits />

@@ -73,7 +73,7 @@ function AtlasAppDrawer({ open, handleClose, handleOpen, menuItems, logo }) {
                   item.scrollFunction()
                   setTimeout(() => {
                     handleClose()
-                  }, 750)
+                  }, 400)
                 } else {
                   navigate("/")
                 }

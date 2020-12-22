@@ -1,16 +1,17 @@
-.swiper-pagination {
+/* .swiper-pagination {
   position: relative;
   top: 75%;
-}
+} */
 
 .swiper-container {
-  height: 580px;
-  margin-top: 3em;
+  height: 520px;
   margin-bottom: 3em;
+  display: flex;
+  align-items: center;
 }
 
 .swiper-slide {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
 }
