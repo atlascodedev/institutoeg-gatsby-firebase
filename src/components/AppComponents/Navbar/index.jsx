@@ -60,7 +60,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default function Navbar({ data, ...props }) {
+export default function Navbar({ data, refs, ...props }) {
   const classes = useStyles()
   const location = useLocation()
   const logoGnosis = GnosisLogo
@@ -76,15 +76,37 @@ export default function Navbar({ data, ...props }) {
     setAtlasDrawerState(false)
   }
 
+  React.useEffect(() => {
+    if (refs) {
+      for (let index = 0; index < refs.length; index++) {
+        console.log(refs[index])
+  
+        menu[index].reference = refs[index].current
+  
+        menu[index].scrollFunction = () =>
+          refs[index].current.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          })
+      }
+    }
+  })
+
   const menu = [
     {
-      menuName: "Serviços",
+      menuName: "Home",
       reference: null,
       scrollFunction: null,
     },
 
     {
-      menuName: "Showcase",
+      menuName: "Benefícios",
+      reference: null,
+      scrollFunction: null,
+    },
+
+    {
+      menuName: "Cursos",
       reference: null,
       scrollFunction: null,
     },
@@ -140,7 +162,7 @@ export default function Navbar({ data, ...props }) {
                         className={classes.appBarButton}
                         onClick={() => {
                           if (isHome) {
-                            item.scrollFunction
+                            item.scrollFunction()
                           } else {
                             navigate("/")
                           }

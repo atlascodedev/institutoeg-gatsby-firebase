@@ -10,12 +10,27 @@ import ContactFormMain from "../components/AppComponents/ContactFormMain"
 function IndexPage(props) {
   console.log(process.env)
 
+  const landingRef = React.useRef(null)
+  const benefitsRef = React.useRef(null)
+  const courseRef = React.useRef(null)
+  const contactRef = React.useRef(null)
+
+  const pageRefs = [landingRef, benefitsRef, courseRef, contactRef]
+
   return (
-    <AppLayout>
-      <LandingHero />
-      <Benefits />
-      <LandingCourseSection />
-      <ContactFormMain />
+    <AppLayout refs={pageRefs}>
+      <div ref={landingRef}>
+        <LandingHero />
+      </div>
+      <div ref={benefitsRef}>
+        <Benefits />
+      </div>
+      <div ref={courseRef}>
+        <LandingCourseSection />
+      </div>
+      <div ref={contactRef}>
+        <ContactFormMain />
+      </div>
     </AppLayout>
   )
 }
