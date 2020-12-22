@@ -9,7 +9,7 @@ const PrivateRoute = ({ component: Component, location, ...rest }) => {
     return null
   } else if (auth && location.pathname == "/admin/login") {
     navigate("/admin/alunos")
-  }
+  } 
 
   return <Component {...rest}></Component>
 }

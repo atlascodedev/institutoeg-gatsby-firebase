@@ -8,6 +8,8 @@ import { graphql, useStaticQuery } from "gatsby"
 import ContactFormMain from "../components/AppComponents/ContactFormMain"
 
 function IndexPage(props) {
+  console.log(process.env)
+
   return (
     <AppLayout>
       <LandingHero />

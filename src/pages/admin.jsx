@@ -13,7 +13,9 @@ import { FirebaseAuthContext } from "../authentication/context"
 function Admin(props) {
   const { auth } = React.useContext(FirebaseAuthContext)
 
-  // console.log(isAuth, 'aqui aqui aqui')
+  if (location.pathname == "/admin/") {
+    navigate("/admin/login")
+  }
 
   return (
     <Router>

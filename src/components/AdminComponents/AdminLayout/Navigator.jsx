@@ -11,6 +11,9 @@ import ListItemText from "@material-ui/core/ListItemText"
 import HomeIcon from "@material-ui/icons/Home"
 import { useLocation, Link } from "@reach/router"
 import AccountCard from "../AccountCard"
+import { Box, Button } from "@material-ui/core"
+import WebsiteUpdate from "../WebsiteUpdate"
+import Axios from "axios"
 
 const styles = theme => ({
   categoryHeader: {
@@ -56,9 +59,27 @@ const styles = theme => ({
 
 function Navigator(props) {
   const [categories, setCategories] = React.useState([])
+  const [websiteUpdate, setWebsiteUpdate] = React.useState(false)
 
   const { classes, ...other } = props
   const { pathname } = useLocation()
+
+  const updateWebsiteCallback = () => {
+    if (process.env.NODE_ENV !== "production") {
+      Axios.defaults.baseURL =
+        "http://localhost:5001/gnosis-webapp/us-central1/api"
+    } else {
+      Axios.defaults.baseURL = "ouch"
+    }
+
+    Axios.post("/build", {
+      token: "462c46a029b56a94fdd46490c8ce7c08981875e7",
+    })
+      .then(result => console.log(result.data))
+      .catch(error => {
+        console.log(error)
+      })
+  }
 
   React.useEffect(() => {
     setCategories(props.categories)
@@ -66,7 +87,6 @@ function Navigator(props) {
 
   return (
     <Drawer variant="permanent" {...other}>
-
       <List disablePadding>
         <ListItem
           className={clsx(classes.firebase, classes.item, classes.itemCategory)}
@@ -135,6 +155,29 @@ function Navigator(props) {
           </React.Fragment>
         ))}
       </List>
+
+      <Box display="flex" justify="start" height="100%" alignItems="end">
+        <Box pb={2} pl={2} color={"#ffffff"}>
+          <Button
+            onClick={() => setWebsiteUpdate(true)}
+            variant="contained"
+            color="inherit"
+            style={{
+              backgroundColor: "#F15D3C",
+              fontWeight: 700,
+              fontSize: "0.75em",
+            }}
+          >
+            Atualizar website
+          </Button>
+        </Box>
+      </Box>
+
+      <WebsiteUpdate
+        open={websiteUpdate}
+        handleClose={() => setWebsiteUpdate(false)}
+        callback={updateWebsiteCallback}
+      />
     </Drawer>
   )
 }

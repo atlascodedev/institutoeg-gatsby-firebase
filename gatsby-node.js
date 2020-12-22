@@ -17,9 +17,6 @@ exports.sourceNodes = async ({
 }) => {
   let allCourses = await axios.get("/courses")
 
-  // const allCourseAreas = await axios.get("/courseAreas")
-
-  // const courseSlugArray = []
   const courseDummyData = {
     data: [
       {
@@ -43,45 +40,6 @@ exports.sourceNodes = async ({
   }
 
   console.log(allCourses)
-
-  // allCourses.data.forEach(course => {
-  //   const courseAreaToSlug = converToSlug(course.courseArea)
-  //   const courseLevelToSlug = converToSlug(course.courseLevel)
-
-  //   courseSlugArray.push(
-  //     `${courseLevelToSlug}/${courseAreaToSlug}/${course.courseSlug}`
-  //   )
-  // })
-
-  // courseSlugArray.forEach(courseSlug => {
-  //   const node = {
-  //     courseSlug: courseSlug,
-  //     type: `courseSlug`,
-  //     id: createNodeId(`courseSlug${nanoid()}`),
-  //     internal: {
-  //       type: "courseSlug",
-  //       contentDigest: createContentDigest(courseSlug),
-  //     },
-  //   }
-
-  //   actions.createNode(node)
-  // })
-
-  // console.log(courseSlugArray)
-
-  // allCourseAreas.data.forEach(courseArea => {
-  //   const node = {
-  //     courseAreaName: courseArea.courseAreaName,
-  //     courseAreaLevel: courseArea.courseAreaLevel,
-  //     type: `${courseArea.courseAreaName}${courseArea.uid}`,
-  //     id: createNodeId(`courseArea-${courseArea.uid}`),
-  //     internal: {
-  //       type: "courseArea",
-  //       contentDigest: createContentDigest(courseArea),
-  //     },
-  //   }
-  //   actions.createNode(node)
-  // })
 
   allCourses.data.forEach(course => {
     const node = {
