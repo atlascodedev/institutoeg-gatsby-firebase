@@ -69,12 +69,11 @@ function Navigator(props) {
       Axios.defaults.baseURL =
         "http://localhost:5001/gnosis-webapp/us-central1/api"
     } else {
-      Axios.defaults.baseURL = "ouch"
+      Axios.defaults.baseURL =
+        "https://us-central1-gnosis-webapp.cloudfunctions.net/api"
     }
 
-    Axios.post("/build", {
-      token: "462c46a029b56a94fdd46490c8ce7c08981875e7",
-    })
+    Axios.post("/build")
       .then(result => console.log(result.data))
       .catch(error => {
         console.log(error)

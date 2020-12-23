@@ -7,7 +7,23 @@ if (process.env.NODE_ENV !== "production") {
   axios.default.defaults.baseURL =
     "http://localhost:5001/gnosis-webapp/us-central1/api"
 } else {
-  axios.default.defaults.baseURL = null
+  axios.default.defaults.baseURL =
+    "https://us-central1-gnosis-webapp.cloudfunctions.net/api"
+}
+
+exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
+  if (stage === "build-html") {
+    actions.setWebpackConfig({
+      module: {
+        rules: [
+          {
+            test: /^@?firebase(\/(.+))?/,
+            use: loaders.null(),
+          },
+        ],
+      },
+    })
+  }
 }
 
 exports.sourceNodes = async ({
@@ -67,9 +83,7 @@ exports.sourceNodes = async ({
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
 
-  const allCourses = await axios.get(
-    "http://localhost:5001/gnosis-webapp/us-central1/api/courses"
-  )
+  const allCourses = await axios.get("/courses")
 
   allCourses.data.forEach(course => {
     const courseAreaToSlug = converToSlug(course.courseArea)

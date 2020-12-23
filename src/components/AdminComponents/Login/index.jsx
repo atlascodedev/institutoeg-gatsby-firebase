@@ -94,9 +94,9 @@ const useStyles = makeStyles(theme => ({
 }))
 
 export default function SignInSide() {
-  const { firebaseAuth } = React.useContext(FirebaseAuthContext)
+  // const { firebaseAuth } = React.useContext(FirebaseAuthContext)
 
-  console.log(firebaseAuth)
+  // console.log(firebaseAuth)
 
   const loginUser = e => {
     e.preventDefault()
@@ -104,7 +104,7 @@ export default function SignInSide() {
     const userLoginEmail = e.target[0].value
     const userLoginPassword = e.target[2].value
 
-    firebaseAuth.loginUser(userLoginEmail, userLoginPassword)
+    // firebaseAuth.loginUser(userLoginEmail, userLoginPassword)
   }
 
   const classes = useStyles()

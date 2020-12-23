@@ -11,20 +11,42 @@ import { theme } from "../theme"
 export const FirebaseGlobalContext = React.createContext(null)
 
 const FirebaseGlobalContextProvider = props => {
+  const [firebaseApp, setFirebaseApp] = React.useState("")
+
+  let instance
+
+  const getFirebase = () => {
+    if (typeof window !== "undefined") {
+      if (instance) return instance
+
+      instance = new Firebase(app)
+
+      return instance
+    }
+
+    return null
+  }
+
+  React.useEffect(() => {
+    setFirebaseApp(new Firebase(app))
+  }, [])
+
   return (
-    <FirebaseGlobalContext.Provider value={new Firebase(app)}>
+    <FirebaseGlobalContext.Provider value={firebaseApp}>
       {props.children}
     </FirebaseGlobalContext.Provider>
   )
 }
 
-export const wrapRootElement = ({ element }) => {
+const App = ({ root }) => {
   return (
     <FirebaseGlobalContextProvider>
-      <FirebaseAuthContextProvider>
-        <CssBaseline></CssBaseline>
-        <MuiThemeProvider theme={theme}>{element}</MuiThemeProvider>
-      </FirebaseAuthContextProvider>
+      <CssBaseline></CssBaseline>
+      <MuiThemeProvider theme={theme}>{root}</MuiThemeProvider>
     </FirebaseGlobalContextProvider>
   )
+}
+
+export const wrapRootElement = ({ element }) => {
+  return <App root={element}></App>
 }

@@ -11,11 +11,15 @@ import PrivateRoute from "../components/AdminComponents/PrivateRoute"
 import { FirebaseAuthContext } from "../authentication/context"
 
 function Admin(props) {
-  const { auth } = React.useContext(FirebaseAuthContext)
+  // const { auth } = React.useContext(FirebaseAuthContext)
 
-  if (location.pathname == "/admin/") {
-    navigate("/admin/login")
-  }
+  React.useEffect(() => {
+    if (location.pathname == "/admin/") {
+      navigate("/admin/login")
+    }
+  }, [])
+
+  const auth = true
 
   return (
     <Router>

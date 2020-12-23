@@ -65,7 +65,7 @@ function Header(props) {
     setAccountCard(false)
   }
 
-  const { firebaseAuth } = React.useContext(FirebaseAuthContext)
+  // const { firebaseAuth } = React.useContext(FirebaseAuthContext)
 
   return (
     <React.Fragment>
@@ -100,7 +100,7 @@ function Header(props) {
             </Grid> */}
             <Grid item>
               <AccountCard
-                callback={firebaseAuth.logoutUser}
+                callback={null}
                 handleClose={handleAccountCardClose}
                 open={accountCard}
               />

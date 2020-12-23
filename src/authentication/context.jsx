@@ -6,13 +6,13 @@ export const FirebaseAuthContext = React.createContext(null)
 export const FirebaseAuthContextProvider = props => {
   const firebase = React.useContext(FirebaseGlobalContext)
 
-  const { firebaseAuth } = firebase
-
-  console.log(firebaseAuth.auth)
-
   const [auth, setAuth] = React.useState(false)
 
+  let firebaseAuth
+
   React.useEffect(() => {
+    firebaseAuth = firebase.firebaseAuth
+
     firebaseAuth.auth.onAuthStateChanged(user => {
       if (!user) {
         setAuth(false)
