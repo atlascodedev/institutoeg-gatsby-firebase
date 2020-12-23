@@ -1,11 +1,9 @@
 import { makeStyles } from "@material-ui/core"
 import React from "react"
-import { FirebaseGlobalContext } from "../../../context/globalContext"
+import { FirebaseContext } from "../../../context/firebase"
 import AdminLayout from "../AdminLayout/Paperbase"
 import StudentCreateCard from "./StudentCreateCard"
 import StudentTable from "./StudentTable"
-import ConfirmationDialog from "../../UtilityComponents/ConfirmationDialog"
-import StudentUpdateCard from "./StudentUpdateCard"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -15,7 +13,7 @@ const useStyles = makeStyles(theme => ({
 
 function Students(props) {
   const classes = useStyles()
-  const { firestoreMethods } = React.useContext(FirebaseGlobalContext)
+  const { firestoreMethods } = React.useContext(FirebaseContext)
   const [students, setStudents] = React.useState([])
   const [createStudentCard, setCreateStudentCard] = React.useState(false)
 

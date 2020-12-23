@@ -68,7 +68,7 @@ const useStyles = makeStyles(theme => ({
   syllabusContainer: {
     display: "grid",
     gridAutoFlow: "row",
-    gridTemplateColumns: "1fr 1fr 1fr",
+    gridTemplateColumns: "33.3333% 33.3333% 33.3333%",
   },
 
   syllabusHeading: {

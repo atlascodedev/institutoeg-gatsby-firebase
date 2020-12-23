@@ -41,8 +41,10 @@ const FirebaseGlobalContextProvider = props => {
 const App = ({ root }) => {
   return (
     <FirebaseGlobalContextProvider>
-      <CssBaseline></CssBaseline>
-      <MuiThemeProvider theme={theme}>{root}</MuiThemeProvider>
+      <FirebaseAuthContextProvider>
+        <CssBaseline></CssBaseline>
+        <MuiThemeProvider theme={theme}>{root}</MuiThemeProvider>
+      </FirebaseAuthContextProvider>
     </FirebaseGlobalContextProvider>
   )
 }

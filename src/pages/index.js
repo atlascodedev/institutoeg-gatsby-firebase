@@ -6,9 +6,14 @@ import _ from "lodash"
 import LandingCourseSection from "../components/AppComponents/LandingCourseSection"
 import { graphql, useStaticQuery } from "gatsby"
 import ContactFormMain from "../components/AppComponents/ContactFormMain"
+import { FirebaseContext } from "../context/firebase"
 
 function IndexPage(props) {
   console.log(process.env)
+
+  const firebase = React.useContext(FirebaseContext)
+
+  console.log(firebase)
 
   const landingRef = React.useRef(null)
   const benefitsRef = React.useRef(null)

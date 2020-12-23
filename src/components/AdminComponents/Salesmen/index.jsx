@@ -1,9 +1,9 @@
 import { makeStyles } from "@material-ui/core"
 import React from "react"
-import { FirebaseGlobalContext } from "../../../context/globalContext"
 import AdminLayout from "../AdminLayout/Paperbase"
 import SalesTable from "./SalesTable"
 import SalesCreateCard from "./SalesCreateCard"
+import { FirebaseContext } from "../../../context/firebase"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
 
 function Sales(props) {
   const classes = useStyles()
-  const { firestoreMethods } = React.useContext(FirebaseGlobalContext)
+  const { firestoreMethods } = React.useContext(FirebaseContext)
   const [salesCard, setSalesCard] = React.useState(false)
   const [sales, setSales] = React.useState([])
 
@@ -44,7 +44,7 @@ function Sales(props) {
       ></SalesCreateCard>
       <div className={classes.root}>
         <SalesTable
-        updateSales={firestoreMethods.updateSales}
+          updateSales={firestoreMethods.updateSales}
           deleteSales={firestoreMethods.deleteSalesBatch}
           sales={sales}
           handleOpen={handleSalesCardOpen}

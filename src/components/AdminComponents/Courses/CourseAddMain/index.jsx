@@ -1,4 +1,5 @@
 import React from "react"
+import { FirebaseContext } from "../../../../context/firebase"
 import { FirebaseGlobalContext } from "../../../../context/globalContext"
 import AtlasDatagrid from "../../../UtilityComponents/AtlasDatagrid"
 import CourseAddMainCard from "./CourseAddMainCard"
@@ -8,7 +9,7 @@ function CourseAddMain({ courseAreas, createCourse }) {
   const [data, setData] = React.useState([])
   const [additionalData, setAdditionalData] = React.useState({})
 
-  const { firestoreMethods } = React.useContext(FirebaseGlobalContext)
+  const { firestoreMethods } = React.useContext(FirebaseContext)
 
   const gridColumns = [
     { title: "uid", field: "uid", hidden: true },
