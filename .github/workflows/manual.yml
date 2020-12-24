@@ -3,7 +3,7 @@
 name: Manual workflow
 on:
   repository_dispatch:
-    types: [start-example]
+    types: [start-example2]
 jobs:
   user_action_build:
     runs-on: ubuntu-latest
