@@ -2,7 +2,6 @@ name: Build Gatsby static website and deploy
 on:
   repository_dispatch:
     types: [start-example]
-    
 jobs:
   build:
     name: Build
