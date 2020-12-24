@@ -1,7 +1,8 @@
 name: Build and deploy after development change
-push:
-  branches:
-    - main
+"on":
+  push:
+    branches:
+      - main
 jobs:
   build_dev_changes_and_deploy:
     runs-on: ubuntu-latest
