@@ -11,10 +11,6 @@ import { FirebaseContext } from "../context/firebase"
 function IndexPage(props) {
   console.log(process.env)
 
-  const firebase = React.useContext(FirebaseContext)
-
-  console.log(firebase)
-
   const landingRef = React.useRef(null)
   const benefitsRef = React.useRef(null)
   const courseRef = React.useRef(null)

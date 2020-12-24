@@ -2,7 +2,6 @@ const functions = require("firebase-functions")
 const app = require("express")()
 const admin = require("firebase-admin")
 const cors = require("cors")
-const request = require("request")
 const { default: Axios } = require("axios")
 
 const firebase = admin.initializeApp()

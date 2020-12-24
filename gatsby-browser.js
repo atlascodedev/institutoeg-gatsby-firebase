@@ -5,24 +5,31 @@ import firebase from "firebase/app"
 import "firebase/auth"
 import "firebase/firestore"
 import "firebase/storage"
-import firebaseConfig from "./src/config/firebase.config"
 import { FirebaseContext, AuthContextProvider } from "./src/context/firebase"
 import { CssBaseline, MuiThemeProvider } from "@material-ui/core"
 import { theme } from "./src/theme/"
 import FirestoreMethods from "./src/firebase/firestoreMethods"
 import FirebaseAuthMethods from "./src/firebase/firebaseAuthMethods"
+import { navigate } from "gatsby"
 
-const app = firebase.initializeApp(firebaseConfig)
+const app = firebase.initializeApp({
+  apiKey: "AIzaSyD9ZRqGumQU0DGAuI7taI4wJTwlv6Z4TjU",
+  authDomain: "gnosis-webapp.firebaseapp.com",
+  databaseURL: "https://gnosis-webapp.firebaseio.com",
+  projectId: "gnosis-webapp",
+  storageBucket: "gnosis-webapp.appspot.com",
+  messagingSenderId: "832655236514",
+  appId: "1:832655236514:web:af31450870ee8d11eaa6fb",
+  measurementId: "G-L7QHHFY7C6",
+})
 
 const firestore = app.firestore()
 const storage = app.storage()
 const auth = app.auth()
+const firestoreNamespace = firebase.firestore
 
 if (process.env.NODE_ENV !== "production") {
-  firestore.settings({
-    host: "localhost:8080",
-    ssl: true,
-  })
+  firestore.useEmulator("localhost", 8080)
 
   console.log(
     "Warning: You're running a local instance of Firestore, data will persisted to the database"
@@ -31,30 +38,33 @@ if (process.env.NODE_ENV !== "production") {
 
 const LOCAL_STORAGE_LOGIN_KEY = "user_is_logged_in"
 
-const firestoreMethods = new FirestoreMethods(firestore)
-const firebaseAuthMethods = new FirebaseAuthMethods(auth, firestore)
+const firestoreMethods = new FirestoreMethods(
+  firestore,
+  firestoreNamespace,
+  storage
+)
+const firebaseAuth = new FirebaseAuthMethods(auth, firestore)
 
 const App = ({ root }) => {
-  const [isLogged, setIsLogged] = React.useState(
-    localStorage.getItem(LOCAL_STORAGE_LOGIN_KEY) === "true"
-  )
+  const [isAuth, setAuth] = React.useState(false)
 
   React.useEffect(() => {
     auth.onAuthStateChanged(user => {
-      const userLoggedIn = !!user
-
-      localStorage.setItem(
-        LOCAL_STORAGE_LOGIN_KEY,
-        JSON.stringify(userLoggedIn)
-      )
-
-      setIsLogged(userLoggedIn)
+      if (user) {
+        setAuth(true)
+      } else {
+        setAuth(false)
+      }
     })
-  }, [])
+  })
 
   return (
     <FirebaseContext.Provider
-      value={{ firestoreMethods, firebaseAuthMethods, storage, isLogged }}
+      value={{
+        firestoreMethods,
+        firebaseAuth,
+        isAuth,
+      }}
     >
       <CssBaseline />
       <MuiThemeProvider theme={theme}>{root}</MuiThemeProvider>

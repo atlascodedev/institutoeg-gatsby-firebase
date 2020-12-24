@@ -68,3 +68,6 @@ yarn-error.log
 .pnp.js
 # Yarn Integrity file
 .yarn-integrity
+.firebase/hosting.cHVibGlj.cache
+src/config/firebase.config.js
+emulator-data

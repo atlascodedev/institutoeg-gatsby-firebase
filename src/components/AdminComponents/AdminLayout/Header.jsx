@@ -19,6 +19,7 @@ import { withStyles } from "@material-ui/core/styles"
 import { useLocation } from "@reach/router"
 import AccountCard from "../AccountCard"
 import { FirebaseAuthContext } from "../../../authentication/context"
+import { FirebaseContext } from "../../../context/firebase"
 
 const lightColor = "rgba(255, 255, 255, 0.7)"
 
@@ -65,7 +66,7 @@ function Header(props) {
     setAccountCard(false)
   }
 
-  // const { firebaseAuth } = React.useContext(FirebaseAuthContext)
+  const { firebaseAuth } = React.useContext(FirebaseContext)
 
   return (
     <React.Fragment>
@@ -100,7 +101,7 @@ function Header(props) {
             </Grid> */}
             <Grid item>
               <AccountCard
-                callback={null}
+                callback={() => firebaseAuth.logoutUser()}
                 handleClose={handleAccountCardClose}
                 open={accountCard}
               />

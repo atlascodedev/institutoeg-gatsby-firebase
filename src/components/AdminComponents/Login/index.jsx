@@ -16,7 +16,7 @@ import LazyImage from "../../UtilityComponents/LazyImage"
 import thumb1 from "../../../images/thumbnails/t1.png"
 import thumb2 from "../../../images/thumbnails/t2.png"
 import thumb3 from "../../../images/thumbnails/t3.png"
-import { FirebaseAuthContext } from "../../../authentication/context"
+import { FirebaseContext } from "../../../context/firebase"
 
 function Copyright() {
   return (
@@ -94,7 +94,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 export default function SignInSide() {
-  // const { firebaseAuth } = React.useContext(FirebaseAuthContext)
+  const { firebaseAuth } = React.useContext(FirebaseContext)
 
   // console.log(firebaseAuth)
 
@@ -104,7 +104,7 @@ export default function SignInSide() {
     const userLoginEmail = e.target[0].value
     const userLoginPassword = e.target[2].value
 
-    // firebaseAuth.loginUser(userLoginEmail, userLoginPassword)
+    firebaseAuth.loginUser(userLoginEmail, userLoginPassword)
   }
 
   const classes = useStyles()

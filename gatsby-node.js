@@ -55,7 +55,7 @@ exports.sourceNodes = async ({
     allCourses = courseDummyData
   }
 
-  console.log(allCourses)
+  console.log(allCourses.data)
 
   allCourses.data.forEach(course => {
     const node = {

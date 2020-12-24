@@ -8,18 +8,20 @@ import Courses from "../components/AdminComponents/Courses"
 import Sales from "../components/AdminComponents/Salesmen"
 import Messages from "../components/AdminComponents/Messages"
 import PrivateRoute from "../components/AdminComponents/PrivateRoute"
-import { FirebaseAuthContext } from "../authentication/context"
+import { FirebaseContext } from "../context/firebase"
 
 function Admin(props) {
-  // const { auth } = React.useContext(FirebaseAuthContext)
+  const [auth, setAuth] = React.useState(false)
+
+  const firebase = React.useContext(FirebaseContext)
 
   React.useEffect(() => {
-    if (location.pathname == "/admin/") {
+    setAuth(firebase.isAuth)
+
+    if (location.pathname == "/admin/" || location.pathname == "/admin") {
       navigate("/admin/login")
     }
-  }, [])
-
-  const auth = true
+  })
 
   return (
     <Router>
