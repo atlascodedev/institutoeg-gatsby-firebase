@@ -1,9 +1,9 @@
-name: Deploy to Firebase Hosting on merge
-"on":
-  repository_dispatch:
-    types: [start-example]
+name: Build and deploy after development change
+push:
+  branches:
+    - main
 jobs:
-  build_and_deploy:
+  build_dev_changes_and_deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
