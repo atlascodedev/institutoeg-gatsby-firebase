@@ -1,0 +1,18 @@
+name: Build Gatsby static website and deploy
+on:
+  repository_dispatch:
+    types: [start-example]
+    
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Automatic deploy on UI action
+      - uses: actions/checkout@v2
+      - run: npm ci && npm run build
+      - name: Deploy to Firebase
+      - uses: w9jds/firebase-action@master
+        with:
+          args: deploy 
+        env: "${{secrets.FIREBASE_CI_SECRET}}"
