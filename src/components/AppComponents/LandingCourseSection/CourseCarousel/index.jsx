@@ -48,7 +48,7 @@ const CourseCarousel = ({ courses }) => {
             navigation: {},
           },
         }}
-        pagination={{ clickable: paginationVisible }}
+        pagination={{ clickable: true }}
         onSlideChange={() => null}
       >
         {courses.map((edge, index) => {

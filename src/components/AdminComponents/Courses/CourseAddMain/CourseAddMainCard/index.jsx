@@ -47,6 +47,16 @@ function CourseAddMainCard({
     false
   )
 
+  const resetCourseForm = () => {
+    setCourseName("")
+    setCourseDuration("")
+    setCourseAreaLevel("")
+    setCourseImage("")
+    setCourseEmec("")
+    setCourseSyllabus([])
+    setCourseDescription("")
+  }
+
   const validateCourseName = () => {
     Yup.reach(schema, "courseName")
       .validate(courseName)
@@ -104,6 +114,9 @@ function CourseAddMainCard({
       courseDescription
     )
     // console.log(courseSlug)
+
+    resetCourseForm()
+    handleClose()
   }
 
   return (
@@ -116,6 +129,7 @@ function CourseAddMainCard({
           </DialogContentText>
           <Box py={1}>
             <TextField
+              value={courseName}
               fullWidth
               onChange={e => setCourseName(e.target.value)}
               onBlur={validateCourseName}
@@ -127,6 +141,7 @@ function CourseAddMainCard({
 
           <Box py={1}>
             <TextField
+              value={courseDuration}
               fullWidth
               onChange={e => setCourseDuration(e.target.value)}
               onBlur={validateCourseDuration}
@@ -142,6 +157,7 @@ function CourseAddMainCard({
 
           <Box py={1}>
             <TextField
+              value={courseDescription}
               multiline
               rows={3}
               variant="outlined"
