@@ -46,6 +46,7 @@ const CourseCarousel = ({ courses }) => {
             slidesPerView: courses.length >= 3 ? 3 : 1,
             spaceBetween: 20,
             navigation: {},
+            pagination: { clickable: true },
           },
         }}
         pagination={{ clickable: true }}

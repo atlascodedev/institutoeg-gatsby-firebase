@@ -177,14 +177,6 @@ export default function CoursePage({ pageContext, data }) {
 
   console.log(pageContext)
 
-  // pageContext.courseName
-  // pageContext.courseArea
-  // pageContext.courseLevel
-  // pageContext.courseImage
-  // pageContext.courseEmec
-  // pageContext.courseSyllabus
-  // pageContext.courseDuration
-
   return (
     <div className={classes.ancientRoot}>
       <Navbar></Navbar>
@@ -377,14 +369,3 @@ export default function CoursePage({ pageContext, data }) {
     </div>
   )
 }
-
-export const query = graphql`
-  {
-    allFile(filter: { extension: { eq: "svg" } }) {
-      nodes {
-        publicURL
-        extension
-      }
-    }
-  }
-`

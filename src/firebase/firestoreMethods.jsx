@@ -102,8 +102,7 @@ class FirestoreMethods {
         .get()
         .then(courseSnapshot => {
           courseSnapshot.forEach(course => {
-            course
-              .ref
+            course.ref
               .delete()
               .then(result => {
                 console.log(result, "Course deleted with success")
@@ -436,6 +435,75 @@ class FirestoreMethods {
     })
 
     return unsub
+  }
+
+  updateCourse = (
+    uid,
+    courseName,
+    courseFullSlug,
+    courseSlug,
+    courseArea,
+    courseLevel,
+    courseSyllabus,
+    courseEmec,
+    courseImage,
+    courseDescription
+  ) => {
+    this.storage
+      .ref()
+      .child(
+        `images/emec/${courseSlug}-${courseArea}-${courseLevel}-${uid}-emec.png`
+      )
+      .putString(courseEmec, "data_url")
+      .then(imageResultEmec => {
+        imageResultEmec.ref.getDownloadURL().then(emecDownloadUrl => {
+          this.storage
+            .ref()
+            .child(
+              `images/courses/${courseSlug}-${courseArea}-${courseLevel}-${uid}.png`
+            )
+            .putString(courseImage, "data_url")
+            .then(courseImageResult => {
+              courseImageResult.ref
+                .getDownloadURL()
+                .then(courseImageDownloadUrl => {
+                  this.courseRef
+                    .where("uid", "==", uid)
+                    .get()
+                    .then(courseSnapshot => {
+                      courseSnapshot.forEach(course => {
+                        course.ref.update({
+                          courseName: courseName,
+                          courseArea: courseArea,
+                          courseLevel: courseLevel,
+                          courseSyllabus: courseSyllabus,
+                          courseEmec: emecDownloadUrl,
+                          courseImage: courseImageDownloadUrl,
+                          courseDescription: courseDescription,
+                          courseSlug: courseSlug,
+                          courseFullSlug: courseFullSlug,
+                        })
+                      })
+                    })
+                    .catch(error =>
+                      console.log(
+                        error,
+                        "error while fetching course with UID to update"
+                      )
+                    )
+                })
+                .catch(error => {
+                  console.log(error, "error getting course image download URL")
+                })
+            })
+            .catch(error => {
+              console.log(error, "error creating image from data url string")
+            })
+        })
+      })
+      .catch(error => {
+        console.log(error, "error creating image from data url string")
+      })
   }
 
   createCourse = (

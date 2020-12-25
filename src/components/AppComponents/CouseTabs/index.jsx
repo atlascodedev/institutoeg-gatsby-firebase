@@ -68,7 +68,11 @@ const useStyles = makeStyles(theme => ({
   syllabusContainer: {
     display: "grid",
     gridAutoFlow: "row",
-    gridTemplateColumns: "33.3333% 33.3333% 33.3333%",
+    gridTemplateColumns: "50% 50%",
+
+    [theme.breakpoints.up("sm")]: {
+      gridTemplateColumns: "33.3333% 33.3333% 33.3333%",
+    },
   },
 
   syllabusHeading: {
