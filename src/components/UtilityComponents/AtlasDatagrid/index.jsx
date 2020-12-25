@@ -55,6 +55,7 @@ const AtlasDatagrid = ({
   createCallback,
   additionalData,
   createCourse,
+  deleteCourse,
 }) => {
   const tableRef = React.useRef(null)
   const [errorAlert, setErrorAlert] = React.useState(false)
@@ -66,13 +67,25 @@ const AtlasDatagrid = ({
 
   const activeColumns = columns ? columns : []
 
+  const deleCourseCallback = () => {
+    let courseUidArray = []
+
+    selectionValues.forEach(valueSelected => {
+      courseUidArray.push(valueSelected.uid)
+    })
+
+    console.log(courseUidArray)
+
+    deleteCourse(courseUidArray)
+  }
+
   return (
     <div>
       <ConfirmationDialog
         open={deleteDialog}
         type="warning"
         dialogClose={() => setDeleteDialog(false)}
-        callback={deleteCallback}
+        callback={deleCourseCallback}
         message={`Atenção, esta ação é irreversível. Você está prestes a deletar ${dataTitle}s.`}
       />
 
@@ -104,6 +117,7 @@ const AtlasDatagrid = ({
       <MaterialTable
         onSelectionChange={data => {
           setSelectionValues(data)
+          console.log(selectionValues)
         }}
         tableRef={tableRef}
         localization={{

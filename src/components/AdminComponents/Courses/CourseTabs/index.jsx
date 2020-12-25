@@ -36,6 +36,7 @@ export default function CourseTabs({
   deleteCourseArea,
   courseAreas,
   createCourse,
+  deleteCourse
 }) {
   const classes = useStyles()
   const [value, setValue] = React.useState(0)
@@ -73,7 +74,7 @@ export default function CourseTabs({
         />
       </SimpleTabs>
       <SimpleTabs value={value} index={2}>
-        <CourseAddMain courseAreas={courseAreas} createCourse={createCourse} />
+        <CourseAddMain deleteCourse={deleteCourse} courseAreas={courseAreas} createCourse={createCourse} />
       </SimpleTabs>
     </div>
   )

@@ -74,6 +74,57 @@ class FirestoreMethods {
     return unsub
   }
 
+  deleteCourse = uid => {
+    this.courseRef
+      .where("uid", "==", uid)
+      .get()
+      .then(courseSnapshot => {
+        courseSnapshot.forEach(course => {
+          course.ref
+            .delete()
+            .then(courseDeleteSuccess => {
+              console.log(courseDeleteSuccess)
+            })
+            .catch(error => {
+              console.log(error)
+            })
+        })
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
+
+  deleteCourseBatch = uidArray => {
+    uidArray.forEach(uid => {
+      this.courseRef
+        .where("uid", "==", uid)
+        .get()
+        .then(courseSnapshot => {
+          courseSnapshot.forEach(course => {
+            course
+              .ref
+              .delete()
+              .then(result => {
+                console.log(result, "Course deleted with success")
+              })
+              .catch(error => {
+                console.log(
+                  error,
+                  "There was an error while trying to delete courses"
+                )
+              })
+          })
+        })
+        .catch(error => {
+          console.log(
+            error,
+            "There was an error while trying to fetch course data"
+          )
+        })
+    })
+  }
+
   getStudents = (callback = null) => {
     let unsub = this.studentRef.onSnapshot(result => {
       let studentsArray = []

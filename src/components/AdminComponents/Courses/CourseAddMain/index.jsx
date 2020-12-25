@@ -5,7 +5,7 @@ import AtlasDatagrid from "../../../UtilityComponents/AtlasDatagrid"
 import CourseAddMainCard from "./CourseAddMainCard"
 import CourseMainUpdateCard from "./CourseAddMainUpdateCard"
 
-function CourseAddMain({ courseAreas, createCourse }) {
+function CourseAddMain({ courseAreas, createCourse, deleteCourse }) {
   const [data, setData] = React.useState([])
   const [additionalData, setAdditionalData] = React.useState({})
 
@@ -27,7 +27,7 @@ function CourseAddMain({ courseAreas, createCourse }) {
     console.log("update callback")
   }
 
-  const handleDeleteCallback = () => {
+  const handleDeleteCallback = uidArray => {
     console.log("delete callback")
   }
 
@@ -52,6 +52,7 @@ function CourseAddMain({ courseAreas, createCourse }) {
       <AtlasDatagrid
         addDialog={CourseAddMainCard}
         updateDialog={CourseMainUpdateCard}
+        deleteDialog={null}
         dataTitle={"Curso"}
         columns={gridColumns}
         data={data}
@@ -59,6 +60,7 @@ function CourseAddMain({ courseAreas, createCourse }) {
         createCallback={handleCreateCallback}
         updateCallback={handleUpdateCallback}
         createCourse={createCourse}
+        deleteCourse={deleteCourse}
         additionalData={courseAreas}
       ></AtlasDatagrid>
     </div>
