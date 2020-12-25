@@ -54,6 +54,7 @@ function CourseCard({
   courseDescription,
   courseTitle,
   courseLink,
+  courseArea,
 }) {
   return (
     <CourseCardPaper active={active}>
@@ -64,9 +65,9 @@ function CourseCard({
         {courseTitle ? courseTitle : "Placeholder title"}
       </CourseCardTitle>
       <CourseCardDescripton>
-        <Typography noWrap={true}>
-          {courseDescription ? courseDescription : "Lore lorem ipsum text"}
-        </Typography>
+        <Typography>{`Curso de ${
+          courseArea ? courseArea : "placeholder area"
+        }`}</Typography>
       </CourseCardDescripton>
 
       <Button variant="contained" color="primary">

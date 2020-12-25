@@ -48,6 +48,7 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.primary.main,
     fontWeight: 700,
     textDecoration: "none",
+    fontSize: "0.85em",
   },
 
   courseMenuArrow: {
@@ -147,7 +148,7 @@ function CourseMenu({ courses }) {
                     className={classes.courseMenuItem}
                     to={course.courseFullSlug}
                   >
-                    {course.courseName}
+                    {course.courseName + " - " + course.courseArea}
                   </Link>
                 </div>
               </Fade>

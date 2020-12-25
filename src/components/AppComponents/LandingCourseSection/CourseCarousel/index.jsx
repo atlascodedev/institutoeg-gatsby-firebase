@@ -20,9 +20,15 @@ import CourseCard from "../CourseCard"
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay])
 
 const CourseCarousel = ({ courses }) => {
-  const swiperPagination = React.useRef(null)
+  const [paginationVisible, setPaginationVisible] = React.useState(false)
 
   console.log(courses)
+
+  React.useEffect(() => {
+    if (courses.length >= 3) {
+      setPaginationVisible(true)
+    } else [setPaginationVisible(false)]
+  }, [])
 
   return (
     <div>
@@ -39,12 +45,11 @@ const CourseCarousel = ({ courses }) => {
           1024: {
             slidesPerView: courses.length >= 3 ? 3 : 1,
             spaceBetween: 20,
-            navigation: true,
+            navigation: {},
           },
         }}
-        pagination={courses.length >= 3 ? { clickable: true } : false}
+        pagination={{ clickable: paginationVisible }}
         onSlideChange={() => null}
-        // onSwiper={swiper => console.log(swiper)}
       >
         {courses.map((edge, index) => {
           console.log(edge.node)
@@ -55,6 +60,7 @@ const CourseCarousel = ({ courses }) => {
                   courseDescription={edge.node.courseDescription}
                   courseTitle={edge.node.courseName}
                   courseImage={edge.node.courseImage}
+                  courseArea={edge.node.courseArea}
                   courseLink={edge.node.courseFullSlug}
                   active={isActive}
                 ></CourseCard>
@@ -63,8 +69,6 @@ const CourseCarousel = ({ courses }) => {
           )
         })}
       </Swiper>
-
-      <div id="swiper-pagination"></div>
     </div>
   )
 }

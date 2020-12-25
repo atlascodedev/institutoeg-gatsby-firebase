@@ -76,18 +76,20 @@ function CourseAddSyllabus({ syllabusList, add }) {
           <Grid item container spacing={3} justify="center">
             {syllabusList.map((syllabusItem, index) => (
               <Grid
-                xs={3}
+                xs={12}
                 container
                 justify="center"
                 key={index + Math.random() * 25}
                 item
               >
-                <Chip
-                  size="small"
-                  label={syllabusItem}
-                  onDelete={() => handleRemoveSyllabusItem(syllabusItem)}
-                  color="primary"
-                />
+                <Box px={2}>
+                  <Chip
+                    size="small"
+                    label={syllabusItem}
+                    onDelete={() => handleRemoveSyllabusItem(syllabusItem)}
+                    color="primary"
+                  />
+                </Box>
               </Grid>
             ))}
           </Grid>
