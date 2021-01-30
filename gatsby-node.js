@@ -3,10 +3,15 @@ const { nanoid } = require("nanoid")
 const path = require("path")
 const { converToSlug } = require("./util_node/index")
 
-if (process.env.NODE_ENV !== "production") {
-  axios.default.defaults.baseURL =
-    "http://localhost:5001/gnosis-webapp/us-central1/api"
-} else {
+try {
+  if (process.env.NODE_ENV !== "production") {
+    axios.default.defaults.baseURL =
+      "http://localhost:5001/gnosis-webapp/us-central1/api"
+  } else {
+    axios.default.defaults.baseURL =
+      "https://us-central1-gnosis-webapp.cloudfunctions.net/api"
+  }
+} catch (error) {
   axios.default.defaults.baseURL =
     "https://us-central1-gnosis-webapp.cloudfunctions.net/api"
 }
@@ -24,6 +29,29 @@ exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
       },
     })
   }
+}
+
+exports.createSchemaCustomization = ({ actions }) => {
+  const { createTypes } = actions
+
+  const typeDefs = `
+    type Course implements Node {
+      uid: String
+      courseName: String
+      courseLevel: String
+      courseDuration: String
+      courseImage: String
+      courseSlug: String
+      courseSyllabus: [String]
+      courseFullSlug: String
+      courseArea: String
+      courseDescription: String
+      courseEmec: String
+        
+    }
+  `
+
+  createTypes(typeDefs)
 }
 
 exports.sourceNodes = async ({

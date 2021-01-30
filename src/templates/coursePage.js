@@ -173,9 +173,11 @@ const useStyles = makeStyles(theme => ({
 export default function CoursePage({ pageContext, data }) {
   const classes = useStyles()
 
-  console.log(data)
+  console.log(
+    `${pageContext.courseName} - ${pageContext.courseArea} - ${pageContext.courseLevel}`
+  )
 
-  console.log(pageContext)
+  let fullCourseTitle = `${pageContext.courseName} - ${pageContext.courseArea} - ${pageContext.courseLevel}`
 
   return (
     <div className={classes.ancientRoot}>
@@ -361,7 +363,7 @@ export default function CoursePage({ pageContext, data }) {
         </div>
 
         <div style={{ background: "#FFF" }}>
-          <CourseContactForm></CourseContactForm>
+          <CourseContactForm courseInfo={fullCourseTitle}></CourseContactForm>
         </div>
       </div>
 

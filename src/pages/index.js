@@ -4,9 +4,7 @@ import LandingHero from "../components/AppComponents/LandingHero"
 import AppLayout from "../layouts/AppLayout"
 import _ from "lodash"
 import LandingCourseSection from "../components/AppComponents/LandingCourseSection"
-import { graphql, useStaticQuery } from "gatsby"
 import ContactFormMain from "../components/AppComponents/ContactFormMain"
-import { FirebaseContext } from "../context/firebase"
 
 function IndexPage(props) {
   console.log(process.env)

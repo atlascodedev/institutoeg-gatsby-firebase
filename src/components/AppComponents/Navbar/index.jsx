@@ -91,7 +91,7 @@ export default function Navbar({ data, refs, ...props }) {
           })
       }
     }
-  })
+  }, [])
 
   const menu = [
     {

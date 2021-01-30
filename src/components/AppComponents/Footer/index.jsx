@@ -106,7 +106,7 @@ function Footer(props) {
               </Grid>
 
               <Grid item container justify="center">
-                {"(51) 9143-1009"}
+                {"(51) 9-9143-1009"}
               </Grid>
 
               <Grid item container justify="center">

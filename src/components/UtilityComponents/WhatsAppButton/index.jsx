@@ -19,7 +19,7 @@ const WhatsAppAnchor = styled.a`
   cursor: pointer;
   display: flex;
   justify-content: center;
-  align-items: center
+  align-items: center;
 `
 
 const useStyles = makeStyles(theme => ({
@@ -29,11 +29,11 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-function WhatsAppButton({ href }) {
+function WhatsAppButton({ href = "https://wa.link/3in1jl" }) {
   const classes = useStyles()
 
   return (
-    <WhatsAppAnchor href={href ? href : "#"}>
+    <WhatsAppAnchor href={href}>
       <SvgIcon component={WhatsApp}></SvgIcon>
     </WhatsAppAnchor>
   )

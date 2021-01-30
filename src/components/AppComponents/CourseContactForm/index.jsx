@@ -6,6 +6,7 @@ import { AccountCircle, Email, Phone } from "@material-ui/icons"
 import FormikField from "../../UtilityComponents/FormikField"
 import MaskInput from "../../UtilityComponents/MaskInput"
 import ConfirmationDialog from "../../UtilityComponents/ConfirmationDialog"
+import Axios from "axios"
 
 const validationSchema = Yup.object({
   name: Yup.string()
@@ -38,7 +39,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-function CourseContactForm(props) {
+function CourseContactForm({ courseInfo = "Curso - Área - Nível da área" }) {
   const classes = useStyles()
 
   const [dialogState, setDialogState] = React.useState(false)
@@ -58,6 +59,7 @@ function CourseContactForm(props) {
         message={
           "Obrigado pelo interesse! Sua mensagem foi enviada com sucesso, logo entraremos em contato com você através do número fornecido no formulário."
         }
+        type="success"
         dialogClose={handleDialogClose}
         open={dialogState}
       />
@@ -65,24 +67,33 @@ function CourseContactForm(props) {
         initialValues={{ name: "", phone: "", email: "", message: "" }}
         validationSchema={validationSchema}
         onSubmit={(values, actions) => {
-          console.log(values.email, values.message, values.phone, values.name)
-          //   axiosAtlas
-          //     .post("/sendMail", {
-          //       name: values.name,
-          //       email: values.email,
-          //       message: values.message,
-          //       phone: values.phone,
-          //     })
-          //     .then(result => {
-          //       console.log(result)
-          //       actions.setSubmitting(false)
-          //       actions.resetForm()
-          //       handleDialogOpen()
-          //     })
-          //     .catch(error => {
-          //       console.log(error)
-          //       actions.setSubmitting(false)
-          //     })
+          console.log(
+            values.email,
+            values.message,
+            values.phone,
+            values.name,
+            courseInfo
+          )
+          Axios.post(
+            "https://us-central1-atlascodedev-landing.cloudfunctions.net/api/sendMail/gnosis-curso",
+            {
+              name: values.name,
+              email: values.email,
+              message: values.message,
+              phone: values.phone,
+              course: courseInfo,
+            }
+          )
+            .then(result => {
+              console.log(result)
+              actions.setSubmitting(false)
+              actions.resetForm()
+              handleDialogOpen()
+            })
+            .catch(error => {
+              console.log(error)
+              actions.setSubmitting(false)
+            })
         }}
       >
         {formik => (

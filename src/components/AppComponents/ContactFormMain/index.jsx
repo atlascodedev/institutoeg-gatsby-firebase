@@ -4,6 +4,8 @@ import { Formik, Form } from "formik"
 import MaskInput from "../../UtilityComponents/MaskInput"
 import { Box, Button, Container, Grid, makeStyles } from "@material-ui/core"
 import FormikField from "../../UtilityComponents/FormikField"
+import Axios from "axios"
+import ConfirmationDialog from "../../UtilityComponents/ConfirmationDialog"
 
 const useStyles = makeStyles(theme => ({
   ancientRoot: {
@@ -24,8 +26,27 @@ const useStyles = makeStyles(theme => ({
 function CourseFormMain(props) {
   const classes = useStyles()
 
+  const [dialogState, setDialogState] = React.useState(false)
+
+  const handleDialogClose = () => {
+    setDialogState(false)
+  }
+
+  const handleDialogOpen = () => {
+    setDialogState(true)
+  }
+
   return (
     <div className={classes.ancientRoot}>
+      <ConfirmationDialog
+        title={"Mensagem enviada com sucesso"}
+        message={
+          "Obrigado pelo interesse! Sua mensagem foi enviada com sucesso, logo entraremos em contato com você através do número fornecido no formulário."
+        }
+        type="success"
+        dialogClose={handleDialogClose}
+        open={dialogState}
+      />
       <Formik
         initialValues={{
           contactName: "",
@@ -48,11 +69,26 @@ function CourseFormMain(props) {
             "Digite uma mensagem com sua dúvida e/ou proposta para nos dar um contexto."
           ),
         })}
-        onSubmit={(values, action) => {
-          console.log(values)
-          action.resetForm()
-
-          action.setSubmitting(false)
+        onSubmit={(values, actions) => {
+          Axios.post(
+            "https://us-central1-atlascodedev-landing.cloudfunctions.net/api/sendMail/gnosis",
+            {
+              name: values.contactName,
+              email: values.contactEmail,
+              message: values.contactMessage,
+              phone: values.contactPhone,
+            }
+          )
+            .then(result => {
+              console.log(result)
+              actions.setSubmitting(false)
+              actions.resetForm()
+              handleDialogOpen()
+            })
+            .catch(error => {
+              console.log(error)
+              actions.setSubmitting(false)
+            })
         }}
       >
         {formik => (

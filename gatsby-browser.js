@@ -11,6 +11,7 @@ import { theme } from "./src/theme/"
 import FirestoreMethods from "./src/firebase/firestoreMethods"
 import FirebaseAuthMethods from "./src/firebase/firebaseAuthMethods"
 import { navigate } from "gatsby"
+import styled from "styled-components"
 
 const app = firebase.initializeApp({
   apiKey: "AIzaSyD9ZRqGumQU0DGAuI7taI4wJTwlv6Z4TjU",
@@ -45,6 +46,31 @@ const firestoreMethods = new FirestoreMethods(
 )
 const firebaseAuth = new FirebaseAuthMethods(auth, firestore)
 
+const MaintenanceModeComponent = styled.div`
+  height: 100vh;
+  position: absolute;
+  width: 100%;
+  z-index: 10000;
+  top: 0;
+  left: 0;
+  background-color: #003358;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+`
+
+const MaintenanceModeMessage = styled.div`
+  font-family: "Graduate";
+  font-size: 22px;
+  text-align: center;
+  color: #fff;
+
+  @media (min-width: 1024px) {
+    font-size: 45px;
+  }
+`
+
 const App = ({ root }) => {
   const [isAuth, setAuth] = React.useState(false)
 
@@ -68,8 +94,22 @@ const App = ({ root }) => {
     >
       <CssBaseline />
       <MuiThemeProvider theme={theme}>{root}</MuiThemeProvider>
+      {/* <MaintenanceModeComponent>
+        <MaintenanceModeMessage>
+          Website principal em manutenção. Em breve estaremos de volta, pedimos
+          desculpas por qualquer inconveniência que isto possa causar. Caso
+          precise efetuar contato, poderá fazê-lo via WhatsApp -{" "}
+          {"(51) 9-9143-1009"} <br></br>
+          O Instituto Educacional Gnosis agradece
+          a compreensão.
+        </MaintenanceModeMessage>
+      </MaintenanceModeComponent> */}
     </FirebaseContext.Provider>
   )
 }
 
 export const wrapRootElement = ({ element }) => <App root={element}></App>
+
+// export const onInitialClientRender = () => {
+//   document.body.style.overflow = "hidden"
+// }
