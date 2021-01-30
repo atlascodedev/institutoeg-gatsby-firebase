@@ -15,6 +15,7 @@ import {
   School,
 } from "@material-ui/icons"
 import React from "react"
+import { Helmet } from "react-helmet"
 import styled from "styled-components"
 import CourseContactForm from "../components/AppComponents/CourseContactForm"
 import CourseTabs from "../components/AppComponents/CouseTabs"
@@ -181,6 +182,10 @@ export default function CoursePage({ pageContext, data }) {
 
   return (
     <div className={classes.ancientRoot}>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>{`Instituto Educacional Gnosis - ${fullCourseTitle}`}</title>
+      </Helmet>
       <Navbar></Navbar>
       <CourseBackgroundImage image={pageContext.courseImage}>
         <Container className={classes.courseHeroContainer}>
