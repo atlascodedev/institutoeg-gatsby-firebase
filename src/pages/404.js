@@ -1,7 +1,7 @@
 import React from "react"
 
 function NotFoundPage(prop) {
-  return <div>Oops, not found you suck</div>
+  return <div>Página não encontrada.</div>
 }
 
 export default NotFoundPage
