@@ -42,6 +42,8 @@ const CourseBackgroundImage = styled.div`
   }
 `
 
+
+
 const useStyles = makeStyles(theme => ({
   ancientRoot: {
     fontFamily: theme.typography.fontFamily,

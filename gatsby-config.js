@@ -42,6 +42,12 @@ module.exports = {
         icon: `src/images/logo-gnosis.png`, // This path is relative to the root of the site.
       },
     },
+    {
+      resolve: `gatsby-plugin-facebook-pixel`,
+      options: {
+        pixelId: "482333026109203",
+      },
+    },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
