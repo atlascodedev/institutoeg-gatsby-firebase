@@ -133,8 +133,6 @@ export default function CourseTabs({ syllabus, duration, emec }) {
     "And don't you forget that",
   ]
 
-  console.log(syllabus, "hwere")
-
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }

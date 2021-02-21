@@ -7,7 +7,6 @@ import LandingCourseSection from "../components/AppComponents/LandingCourseSecti
 import ContactFormMain from "../components/AppComponents/ContactFormMain"
 
 function IndexPage(props) {
-  console.log(process.env)
 
   const landingRef = React.useRef(null)
   const benefitsRef = React.useRef(null)

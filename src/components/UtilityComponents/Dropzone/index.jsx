@@ -16,7 +16,9 @@ export default function Dropzone({ buttonText, image, setImage }) {
 
         setImage(binaryStr)
       }
-      const myFile = reader.readAsDataURL(file)
+      const myFile = reader.readAsArrayBuffer(file)
+
+      console.log(myFile)
     })
   }, [])
   const { getRootProps, getInputProps } = useDropzone({ onDrop })

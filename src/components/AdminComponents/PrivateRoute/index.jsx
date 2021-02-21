@@ -1,5 +1,6 @@
 import React from "react"
 import { navigate } from "gatsby"
+import { navigate } from "@reach/router"
 
 const PrivateRoute = ({ component: Component, location, ...rest }) => {
   const auth = rest.isAuth
@@ -9,7 +10,7 @@ const PrivateRoute = ({ component: Component, location, ...rest }) => {
     return null
   } else if (auth && location.pathname == "/admin/login") {
     navigate("/admin/alunos")
-  } 
+  }
 
   return <Component {...rest}></Component>
 }

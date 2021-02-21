@@ -22,8 +22,6 @@ SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, Autoplay])
 const CourseCarousel = ({ courses }) => {
   const [paginationVisible, setPaginationVisible] = React.useState(false)
 
-  console.log(courses)
-
   React.useEffect(() => {
     if (courses.length >= 3) {
       setPaginationVisible(true)
@@ -53,7 +51,6 @@ const CourseCarousel = ({ courses }) => {
         onSlideChange={() => null}
       >
         {courses.map((edge, index) => {
-          console.log(edge.node)
           return (
             <SwiperSlide>
               {({ isActive }) => (
