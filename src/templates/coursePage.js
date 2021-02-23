@@ -281,7 +281,7 @@ export default function CoursePage({ pageContext, data }) {
                     </div>
                   </Paper>
                 </Grid>
-                <Grid
+                {/* <Grid
                   xs={12}
                   sm={6}
                   md={4}
@@ -298,7 +298,7 @@ export default function CoursePage({ pageContext, data }) {
                       Outorga título acadêmico de especialista
                     </div>
                   </Paper>
-                </Grid>
+                </Grid> */}
                 <Grid
                   xs={12}
                   sm={6}
