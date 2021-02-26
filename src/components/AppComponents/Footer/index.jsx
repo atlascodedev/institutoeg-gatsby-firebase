@@ -106,6 +106,18 @@ function Footer(props) {
               </Grid>
 
               <Grid item container justify="center">
+                <Box
+                  fontWeight={700}
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  <Box>CPNJ:</Box>
+                  <Box>36.605.433/0001-18</Box>
+                </Box>
+              </Grid>
+
+              <Grid item container justify="center">
                 {"(51) 9-9143-1009"}
               </Grid>
 
