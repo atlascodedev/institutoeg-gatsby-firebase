@@ -75,7 +75,7 @@ function ConfirmationDialog({ open, dialogClose, message, type, callback }) {
     ) : type == "error" ? (
       <Error style={{ fill: "#c31e1e" }} />
     ) : (
-      "Dialog type was not provided"
+      "Dialog type w  as not provided"
     )
 
   return (

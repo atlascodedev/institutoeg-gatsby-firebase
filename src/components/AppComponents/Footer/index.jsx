@@ -112,7 +112,7 @@ function Footer(props) {
                   alignItems="center"
                   justifyContent="center"
                 >
-                  <Box>CPNJ:</Box>
+                  <Box>CNPJ:</Box>
                   <Box>36.605.433/0001-18</Box>
                 </Box>
               </Grid>
