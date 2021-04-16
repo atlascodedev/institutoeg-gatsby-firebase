@@ -138,7 +138,7 @@ function CourseAddMainCard({
               helperText={courseNameError ? "Digite o nome do curso" : ""}
             ></TextField>
           </Box>
-
+      
           <Box py={1}>
             <TextField
               value={courseDuration}

@@ -52,7 +52,7 @@ const CourseAddAreaCard = ({
 
               handleClose()
             }}
-          >
+          > 
             {formik => (
               <Form>
                 <Dialog open={open} onClose={handleClose}>
