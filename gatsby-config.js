@@ -6,6 +6,16 @@ module.exports = {
   },
   plugins: [
     {
+      resolve: "gatsby-plugin-google-tagmanager",
+      options: {
+        id: "GTM-KR46SPQ",
+        includeInDevelopment: false,
+
+        defaultDataLayer: { platform: "gatsby" },
+      },
+    },
+    ,
+    {
       resolve: "gatsby-plugin-material-ui",
       options: {
         stylesProvider: {
